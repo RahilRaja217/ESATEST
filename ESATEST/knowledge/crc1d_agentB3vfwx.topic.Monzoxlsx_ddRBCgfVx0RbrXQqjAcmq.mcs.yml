@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: Monzo.xlsx
+  description: This knowledge source provides information found in Monzo.xlsx SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://sage365.sharepoint.com/sites/EmbeddedServicesCopy/Shared%20Documents/ES8%20-%20Business%20Development/Pre-sales%20PI/tendersearch/Monzo.xlsx

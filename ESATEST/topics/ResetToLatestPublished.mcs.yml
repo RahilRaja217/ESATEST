@@ -1,0 +1,29 @@
+mcs.metadata:
+  componentName: Reset To Latest Published
+  description: Resets the conversation and rebinds to the latest published version.
+kind: AdaptiveDialog
+startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Reset To Latest Published
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - reset
+      - reset conversation
+      - reset bot
+      - rebind versions
+      - rebind to latest published version
+      - use latest published version
+      - refresh to latest version
+      - load latest published version
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_resetNotice
+      activity: Resetting the conversation and switching to the latest published version.
+
+    - kind: ReplaceDialog
+      id: replaceDialog_resetConversation
+      dialog: crc1d_agentB3vfwx.topic.ResetConversation

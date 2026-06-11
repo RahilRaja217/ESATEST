@@ -1,0 +1,40 @@
+mcs.metadata:
+  componentName: Competitors
+  description: This topic handles common competitor strategy questions with a narrower retrieval prompt.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Competitors
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Summarise the competitive strategy
+      - Tell me about the competitive strategy
+      - What is the competitive strategy
+      - Explain the competitive strategy
+      - Who are the competitors
+      - Summarise competitors
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_content
+      variable: Topic.Answer
+      userInput: Summarise the competitive strategy for Sage embedded services.
+      responseConfidence: 0.6
+      generatorInput: Provide a concise summary of the competitive strategy for Sage embedded services. Focus on differentiation, positioning, and competitive themes. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_answer_conditions
+      conditions:
+        - id: has_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: ReplaceDialog
+          id: replaceDialog_fallback
+          dialog: crc1d_agentB3vfwx.topic.Fallback

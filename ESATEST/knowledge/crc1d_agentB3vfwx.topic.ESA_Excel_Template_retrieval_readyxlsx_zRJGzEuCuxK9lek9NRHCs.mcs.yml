@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: ESA_Excel_Template_retrieval_ready.xlsx
+  description: This knowledge source provides information found in ESA_Excel_Template_retrieval_ready.xlsx SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://sage365.sharepoint.com/sites/EmbeddedServicesCopy/Shared%20Documents/Developer%20Services%20%26%20Experience/ESA/ESA_Excel_Template_retrieval_ready.xlsx

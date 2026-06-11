@@ -1,0 +1,4 @@
+mcs.metadata:
+  componentName: ESA_Availability_Model_v3.yaml
+  description: This knowledge source searches information contained in ESA_Availability_Model_v3.yaml
+kind: FileAttachmentComponentMetadata

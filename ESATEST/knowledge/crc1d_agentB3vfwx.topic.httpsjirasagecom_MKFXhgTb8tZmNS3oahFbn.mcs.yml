@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: https://jira.sage.com/
+  description: This knowledge source searches information on the web found in https://jira.sage.com/ website
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://jira.sage.com/

@@ -1,0 +1,43 @@
+mcs.metadata:
+  componentName: Reset Conversation
+kind: AdaptiveDialog
+startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Reset Conversation
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - reset
+      - reset conversation
+      - reset bot
+      - rebind versions
+      - rebind to latest published version
+      - use latest published version
+      - refresh to latest version
+      - load latest published version
+
+  actions:
+    - kind: ClearAllVariables
+      id: clearAllVariables_73bTFR
+      variables: ConversationScopedVariables
+
+    - kind: SendActivity
+      id: sendMessage_freshStart
+      activity: |-
+        Hello, I'm the {System.Bot.Name}, here to help you with questions about  Embedded Services.
+
+        What would you like to know about today? I can help with topics like:
+        - **Architecture** - High-level design, integration patterns, service architectures
+        - **Availability** - What is live, externally marketable, or internal across use cases and capabilities.
+        - **Specific Services** - General Ledger, Transactions, Tax Filing, Reporting, etc.
+        - **Features & Capabilities** - What each service offers.
+        - **Marketing** - Understanding the value proposition.
+        - **Tenders** - RFI/RFP Support
+        - **Integration Options** - How to embed and integrate with your platform.
+        - **Best Practice** - Implementation guidance and recommendations.
+
+    - kind: BeginDialog
+      id: beginDialog_showPromptsReset
+      dialog: crc1d_agentB3vfwx.topic.ShowPrompts

@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: https://sage.com
+  description: This knowledge source searches information on the web found in https://sage.com website
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://sage.com

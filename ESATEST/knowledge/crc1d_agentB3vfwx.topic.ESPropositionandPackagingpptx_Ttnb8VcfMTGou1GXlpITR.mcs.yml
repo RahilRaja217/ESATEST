@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: ES Proposition and Packaging.pptx
+  description: This knowledge source provides information found in ES Proposition and Packaging.pptx SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://sage365-my.sharepoint.com/personal/richard_fitzherbert_sage_com/Documents/Documents/Sage%20Embedded%20Services/Proposition%20%26%20playbooks/ES%20Proposition%20and%20Packaging.pptx

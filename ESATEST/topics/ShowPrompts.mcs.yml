@@ -1,0 +1,22 @@
+mcs.metadata:
+  componentName: Show Prompts
+  description: Shared quick prompt buttons used across entry points.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Show Prompts
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - show prompts
+      - quick prompts
+      - show options
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_sharedPrompts
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: "={ type: \"AdaptiveCard\", '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\", msteams: { width: \"Full\" }, body: [ { type: \"TextBlock\", text: \"Quick prompts\", weight: \"Bolder\", size: \"Medium\" }, { type: \"TextBlock\", text: \"Pick an option below.\", wrap: true, spacing: \"Small\" } ], actions: [ { type: \"Action.Submit\", title: \"Reset\", data: { msteams: { type: \"imBack\", value: \"Reset\" } } }, { type: \"Action.Submit\", title: \"New to Embedded Services?\", data: { msteams: { type: \"imBack\", value: \"I'm new to embedded services. Where should I start\" } } }, { type: \"Action.Submit\", title: \"APIs\", data: { msteams: { type: \"imBack\", value: \"Provide a brief API overview with up to 3 useful questions to ask\" } } }, { type: \"Action.Submit\", title: \"Architecture\", data: { msteams: { type: \"imBack\", value: \"Provide a brief architectural overview with up to 3 useful questions to ask\" } } }, { type: \"Action.Submit\", title: \"Availability\", data: { msteams: { type: \"imBack\", value: \"Provide a brief overview on capability and availability with up to 3 useful questions to ask\" } } }, { type: \"Action.Submit\", title: \"Marketing\", data: { msteams: { type: \"imBack\", value: \"Provide a brief overview on marketing with up to 3 useful questions to ask\" } } }, { type: \"Action.Submit\", title: \"Tenders\", data: { msteams: { type: \"imBack\", value: \"Provide a brief summary on how ESA can support answering tender questions\" } } }, { type: \"Action.Submit\", title: \"Competitors\", data: { msteams: { type: \"imBack\", value: \"Provide a brief overview on competitors with up to 3 useful questions to ask\" } } }, { type: \"Action.Submit\", title: \"Send a message\", data: { msteams: { type: \"imBack\", value: \"Escalate\" } } } ] }"

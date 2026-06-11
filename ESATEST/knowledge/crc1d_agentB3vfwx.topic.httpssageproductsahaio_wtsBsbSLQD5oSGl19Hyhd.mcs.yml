@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: https://sageproducts.aha.io/
+  description: This knowledge source searches information on the web found in https://sageproducts.aha.io/ website
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://sageproducts.aha.io/

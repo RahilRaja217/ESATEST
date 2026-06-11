@@ -1,0 +1,30 @@
+﻿jsonFileName: workflows/sendmessage-ba805df9-525c-f111-bec7-000d3a130019/workflow.json
+workflowId: ba805df9-525c-f111-bec7-000d3a130019
+name: send message
+type: 1
+description: This flow starts when it receives a manual trigger with a text input. It then posts a message to a specific Microsoft Teams channel. After successfully posting the message, it sends a response indicating completion. The flow ensures that the response is only sent after the message has been posted to Teams.
+subprocess: false
+category: 5
+mode: 0
+scope: 4
+onDemand: false
+triggerOnCreate: false
+triggerOnDelete: false
+asyncAutodelete: false
+syncWorkflowLogOnFailure: false
+stateCode: 1
+statusCode: 2
+runAs: 1
+isTransacted: true
+introducedVersion: 1.0
+isCustomizable:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: iscustomizableanddeletable
+businessProcessType: 
+isCustomProcessingStepAllowedForOtherPublishers:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: canbedeleted
+modernFlowType: 1
+primaryEntity: none

@@ -1,0 +1,120 @@
+﻿{
+  "properties": {
+    "connectionReferences": {
+      "shared_teams": {
+        "api": {
+          "name": "shared_teams"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedteams_c93cd"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "text",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Post_message_in_a_chat_or_channel": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "poster": "User",
+              "location": "Channel",
+              "body/recipient/groupId": "4387009e-c17d-4430-ac39-6642c726661f",
+              "body/recipient/channelId": "19:By52DO4HkeNV2xzzc94voCVD-APnwJwjtHNKg1Kykd01@thread.tacv2",
+              "body/messageBody": "\u003Cp class=\u0022editor-paragraph\u0022\u003E@{triggerBody()?[\u0027text\u0027]}\u003C/p\u003E"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "operationId": "PostMessageToConversation",
+              "connectionName": "shared_teams"
+            }
+          },
+          "runAfter": {}
+        },
+        "Response": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "esa": {
+                  "title": "esa",
+                  "description": "Relay status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "messageId": {
+                  "title": "messageId",
+                  "description": "Teams message id",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "esa": "relay posted",
+              "messageId": "@{coalesce(body(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027id\u0027], outputs(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027body\u0027]?[\u0027id\u0027])}"
+            }
+          },
+          "runAfter": {
+            "Resolve_message_id": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Resolve_message_id": {
+          "type": "Compose",
+          "inputs": "coalesce(body(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027id\u0027], body(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027body\u0027]?[\u0027id\u0027], outputs(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027body\u0027]?[\u0027id\u0027], outputs(\u0027Post_message_in_a_chat_or_channel\u0027)?[\u0027body/id\u0027], \u0027\u0027)",
+          "runAfter": {
+            "Post_message_in_a_chat_or_channel": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {},
+      "description": "This flow starts when it receives a manual trigger with a text input. It then posts a message to a specific Microsoft Teams channel. After successfully posting the message, it sends a response indicating completion. The flow ensures that the response is only sent after the message has been posted to Teams."
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,18 @@
+mcs.metadata:
+  componentName: Untitled
+kind: TaskDialog
+modelDisplayName: stm
+outputs:
+  - propertyName: esa
+
+  - propertyName: messageId
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: ba805df9-525c-f111-bec7-000d3a130019
+  connectionProperties:
+    $kind: ConnectionProperties
+    diagnostics:
+    mode: Invoker
+
+outputMode: All

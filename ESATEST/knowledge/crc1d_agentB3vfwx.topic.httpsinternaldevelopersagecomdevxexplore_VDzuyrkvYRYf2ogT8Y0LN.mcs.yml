@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: https://internaldeveloper.sage.com/devx/explore/
+  description: This knowledge source searches information on the web found in https://internaldeveloper.sage.com/devx/explore/ website
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://internaldeveloper.sage.com/devx/explore/

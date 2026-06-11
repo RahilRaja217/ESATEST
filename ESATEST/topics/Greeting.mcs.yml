@@ -1,0 +1,32 @@
+mcs.metadata:
+  componentName: Greeting
+  description: This topic is triggered when the user greets the agent.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Greeting
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Good afternoon
+      - Good morning
+      - Hello
+      - Hey
+      - Hi
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_abmysR
+      activity:
+        text:
+          - Hello, how can I help you today?
+        speak:
+          - Hello, <break strength="medium" /> how can I help?
+
+    - kind: BeginDialog
+      id: beginDialog_showPromptsGreeting
+      dialog: crc1d_agentB3vfwx.topic.ShowPrompts
+
+    - kind: CancelAllDialogs
+      id: cancelAllDialogs_01At22

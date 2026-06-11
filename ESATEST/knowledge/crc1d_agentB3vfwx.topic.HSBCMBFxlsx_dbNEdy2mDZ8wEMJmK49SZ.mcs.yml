@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: HSBC MBF.xlsx
+  description: This knowledge source provides information found in HSBC MBF.xlsx SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://sage365.sharepoint.com/sites/EmbeddedServicesCopy/Shared%20Documents/ES8%20-%20Business%20Development/Pre-sales%20PI/tendersearch/HSBC%20MBF.xlsx

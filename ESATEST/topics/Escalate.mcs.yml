@@ -1,0 +1,131 @@
+mcs.metadata:
+  componentName: Escalate
+  description: |-
+    This system topic is triggered when the user indicates they would like to speak to a representative.
+    You can configure how the agent will handle human hand-off scenarios in the agent settings..
+    If your agent does not handle escalations, this topic should be disabled.
+kind: AdaptiveDialog
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnEscalate
+  id: main
+  intent:
+    displayName: Escalate
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Escalate
+      - Send a message
+      - Send a message to the team
+      - Send my message to the team
+      - Contact the team
+      - Contact support
+      - Talk to agent
+      - Talk to a person
+      - Talk to someone
+      - Call back
+      - Call customer service
+      - Call me please
+      - Call support
+      - Call technical support
+      - Can an agent call me
+      - Can I call
+      - Can I get in touch with someone else
+      - Can I get real agent support
+      - Can I get transferred to a person to call
+      - Can I have a call in number Or can I be called
+      - Can I have a representative call me
+      - Can I schedule a call
+      - Can I speak to a representative
+      - Can I talk to a human
+      - Can I talk to a human assistant
+      - Can someone call me
+      - Chat with a human
+      - Chat with a representative
+      - Chat with agent
+      - Chat with someone please
+      - Connect me to a live agent
+      - Connect me to a person
+      - Could some one contact me by phone
+      - Customer agent
+      - Customer representative
+      - Customer service
+      - I need a manager to contact me
+      - I need customer service
+      - I need help from a person
+      - I need to speak with a live argent
+      - I need to talk to a specialist please
+      - I want to talk to customer service
+      - I want to proceed with live support
+      - I want to speak with a consultant
+      - I want to speak with a live tech
+      - I would like to speak with an associate
+      - I would like to talk to a technician
+      - Talk with tech support member
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_escalationQuery
+      variable: Global.EscalationQuery
+      value: =System.Activity.Text
+
+    - kind: SetVariable
+      id: setVariable_escalationTimestamp
+      variable: Global.EscalationTimestampUtc
+      value: =Text(Now(), DateTimeFormat.UTC)
+
+    - kind: Question
+      id: question_escalationMessage
+      alwaysPrompt: true
+      variable: init:Topic.EscalationUserMessage
+      prompt: Please share the message you want me to send to our knowledge management team.
+      entity: StringPrebuiltEntity
+
+    - kind: SetVariable
+      id: setVariable_escalationUserMessage
+      variable: Global.EscalationUserMessage
+      value: =If(IsBlank(Topic.EscalationUserMessage), System.Activity.Text, Topic.EscalationUserMessage)
+
+    - kind: SetVariable
+      id: setVariable_sanitizedEscalationUserMessage
+      variable: Global.SanitizedEscalationUserMessage
+      value: =Left(Substitute(Substitute(Substitute(If(IsBlank(Global.EscalationUserMessage), Global.EscalationQuery, Global.EscalationUserMessage), Char(13), " "), Char(10), " "), Char(9), " "), 500)
+
+    - kind: SetVariable
+      id: setVariable_teamsMessageContent
+      variable: Global.TeamsEscalationMessage
+      value: |-
+        =Concatenate(
+            "🚨 Escalation Request",
+            Char(10),
+            Char(10),
+            "Requested by:",
+            Char(10),
+            System.User.DisplayName,
+            Char(10),
+            Char(10),
+            "Timestamp (UTC):",
+            Char(10),
+            Global.EscalationTimestampUtc,
+            Char(10),
+            Char(10),
+            "Message:",
+            Char(10),
+            Global.SanitizedEscalationUserMessage
+        )
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_ZJ2ZIm
+      input:
+        binding:
+          text: =Global.TeamsEscalationMessage
+
+      output: {}
+      flowId: ff2036b0-e65c-f111-bec7-000d3a130019
+
+    - kind: SendActivity
+      id: sendMessage_s39DCt
+      conversationOutcome: Escalated
+      activity: |-
+        I've notified the team and someone will be in touch with you shortly.
+
+        Is there anything else I can help you with in the meantime?

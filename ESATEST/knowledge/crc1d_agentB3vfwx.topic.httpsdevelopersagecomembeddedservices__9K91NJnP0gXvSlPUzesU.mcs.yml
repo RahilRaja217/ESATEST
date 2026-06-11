@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: https://developer.sage.com/embedded-services
+  description: This knowledge source searches information on the web found in https://developer.sage.com/embedded-services website
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://developer.sage.com/embedded-services

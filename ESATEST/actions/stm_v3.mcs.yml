@@ -1,0 +1,12 @@
+mcs.metadata:
+  componentName: stm_v3
+kind: TaskDialog
+action:
+  kind: InvokeFlowTaskAction
+  flowId: ff2036b0-e65c-f111-bec7-000d3a130019
+  connectionProperties:
+    $kind: ConnectionProperties
+    diagnostics:
+    mode: Invoker
+
+outputMode: All

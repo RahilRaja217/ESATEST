@@ -1,0 +1,29 @@
+mcs.metadata:
+  componentName: Conversation Start
+  description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnConversationStart
+  id: main
+  actions:
+    - kind: SendActivity
+      id: sendActivity_7ZQeJJ
+      activity: |-
+        Hello, I'm {System.Bot.Name}(Embedded Services Assistant), here to help you with questions about  **Embedded Services.**
+
+        What would you like to know about today? I can help with topics like:
+
+        - **Architecture** - High-level design, integration patterns, service architectures
+        - **Availability** - What is live, externally marketable, or internal across use cases and capabilities.
+        - **Specific Services** - General Ledger, Transactions, Tax Filing, Reporting, etc.
+        - **Features & Capabilities** - What each service offers.
+        - **Marketing** - Understanding the value proposition.
+        - **Tenders** - RFI/RFP Support
+        - **Integration Options** - How to embed and integrate with your platform.
+        - **Best Practice** - Implementation guidance and recommendations.
+
+        Feel free to ask me anything about **Sage Embedded Services!** Alternatively, if you don't have a specific question and would just like to learn more, select one of the **Quick Prompts** below to start your journey! If you can't find what you are looking for, feel free to send a message through to the **Knowledge Management** team, using the **Send a Message** prompt.
+
+    - kind: BeginDialog
+      id: beginDialog_showPromptsConversationStart
+      dialog: crc1d_agentB3vfwx.topic.ShowPrompts
