@@ -1,0 +1,41 @@
+mcs.metadata:
+  componentName: API Overview Quick
+  description: Deterministic quick overview response for API overview prompts.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: API Overview Quick
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - API_OVERVIEW_QUICK
+      - Provide a brief API overview
+      - Please provide a brief API overview
+      - Can you provide a brief API overview
+      - Brief API overview
+      - API overview
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_apiOverviewQuick
+      activity: |-
+        Sage Embedded Services APIs are the interface layer for understanding and using core ESA finance capabilities. For users learning about ESA, they are best viewed as capability surfaces that show what ESA can do, how services relate, and where deeper detail is needed.
+
+        | API area | What it covers | Typical learning question |
+        | --- | --- | --- |
+        | Embedded Accounting | Core accounting structures and ledger-aligned records | How is accounting data organized in ESA? |
+        | Embedded Expense Management | Expense capture, processing, and workflows | What expense management workflows are supported? |
+        | Embedded Carbon Accounting | Carbon footprint tracking and reporting | How does ESA support carbon accounting? |
+        | Embedded Payroll | Payroll processing and integration | What payroll capabilities does ESA provide? |
+
+        If useful, I can go one level deeper into any API area with practical examples and common terminology.
+
+        Follow-up questions you could ask:
+        - Which API area should I understand first for learning?
+        - Do you want a capability comparison across Embedded Accounting, Embedded Expense Management, Embedded Carbon Accounting, and Embedded Payroll?
+        - Would you like a simple architecture-level view of how these API areas fit together?
+
+    - kind: EndDialog
+      id: end_topic
+      clearTopicQueue: true

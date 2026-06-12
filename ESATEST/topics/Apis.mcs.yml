@@ -17,12 +17,72 @@ beginDialog:
       - What are the APIs
 
   actions:
+    - kind: ConditionGroup
+      id: api_overview_fast_path
+      conditions:
+        - id: is_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "api_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "brief api overview"), StartsWith(Lower(System.Activity.Text), "api overview"), StartsWith(Lower(System.Activity.Text), "what apis are available"), StartsWith(Lower(System.Activity.Text), "what are the apis"), StartsWith(Lower(System.Activity.Text), "tell me about the apis"), StartsWith(Lower(System.Activity.Text), "summarise apis"), StartsWith(Lower(System.Activity.Text), "summarise the apis"), StartsWith(Lower(System.Activity.Text), "summarise api's"))
+          actions:
+            - kind: SendActivity
+              id: sendActivity_apiOverviewFast
+              activity: |-
+                Sage Embedded Services APIs are the interface layer for understanding and using core ESA finance capabilities. For users learning about ESA, they are best viewed as capability surfaces that show what ESA can do, how services relate, and where deeper detail is needed.
+
+                | API area | What it covers | Typical learning question |
+                | --- | --- | --- |
+                | Embedded Accounting | Core accounting structures and ledger-aligned records | How is accounting data organized in ESA? |
+                | Embedded Expense Management | Expense capture, processing, and workflows | What expense management workflows are supported? |
+                | Embedded Carbon Accounting | Carbon footprint tracking and reporting | How does ESA support carbon accounting? |
+                | Embedded Payroll | Payroll processing and integration | What payroll capabilities does ESA provide? |
+
+                If useful, I can go one level deeper into any API area with practical examples and common terminology.
+
+                Follow-up questions you could ask:
+                - Which API area should I understand first for learning?
+                - Do you want a capability comparison across Embedded Accounting, Embedded Expense Management, Embedded Carbon Accounting, and Embedded Payroll?
+                - Would you like a simple architecture-level view of how these API areas fit together?
+
+            - kind: EndDialog
+              id: endDialog_apiOverviewFast
+              clearTopicQueue: true
+
     - kind: SearchAndSummarizeContent
-      id: search_content
+      id: search_content_compact
       variable: Topic.Answer
-      userInput: Summarise the Sage embedded services APIs.
+      userInput: =System.Activity.Text
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+                   - crc1d_agentB3vfwx.file.ESA_API_Summary_Compact.md_QM0
+
+      generatorInput: "Provide a concise, grounded response for Sage embedded services APIs for users learning about the ESA API landscape. Prioritize clear orientation: what each API area covers, how capabilities relate, and key terminology. Include implementation detail only when the user explicitly asks for build or delivery guidance. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect."
       responseConfidence: 0.6
-      generatorInput: Provide a concise summary of the Sage embedded services APIs. Focus only on API capabilities, integration patterns, and key implementation details. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
+          knowledgeSources:
+            kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
+
+          generatorInput: "Provide a concise, grounded response for Sage embedded services APIs for users learning about the ESA API landscape. Prioritize clear orientation: what each API area covers, how capabilities relate, and key terminology. Include implementation detail only when the user explicitly asks for build or delivery guidance. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect."
+          responseConfidence: 0.6
 
     - kind: ConditionGroup
       id: has_answer_conditions

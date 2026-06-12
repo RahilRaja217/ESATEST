@@ -1,8 +1,8 @@
 mcs.metadata:
-  componentName: ESATEST1
+  componentName: ESATEST15
   description: Provides answers and guidance on Sage embedded services, including features, integration, and usage details.
 kind: GptComponentMetadata
-displayName: ESATEST1
+displayName: ESATEST15
 instructions: |
   Purpose
   - Answer questions about Sage Embedded Services only.
