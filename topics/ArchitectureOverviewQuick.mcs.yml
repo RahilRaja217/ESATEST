@@ -1,0 +1,41 @@
+mcs.metadata:
+  componentName: Architecture Overview Quick
+  description: Deterministic quick overview response for architecture overview prompts.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Architecture Overview Quick
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - ARCHITECTURE_OVERVIEW_QUICK
+      - Provide a brief architectural overview
+      - Please provide a brief architectural overview
+      - Can you provide a brief architectural overview
+      - Brief architectural overview
+      - Architecture overview
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_architectureOverviewQuick
+      activity: |-
+        Sage Embedded Services architecture is designed as a capability-led model that lets partners embed finance experiences without rebuilding core domain services.
+
+        | Architecture area | What it covers | Typical learning question |
+        | --- | --- | --- |
+        | Experience layer | Embedded UX and channel touchpoints in partner journeys | Where does ESA appear in the end-user journey? |
+        | API and orchestration layer | API interfaces, workflow orchestration, and integration coordination | How do partner systems interact with ESA services? |
+        | Domain capability layer | Core business domains such as accounting, payroll, expense, and carbon | Which capabilities are delivered by ESA domain services? |
+        | Platform and operations layer | Security, environment controls, monitoring, and reliability practices | How is architecture operated securely and reliably at scale? |
+
+        If useful, I can go one level deeper into any architecture area with practical examples and common terminology.
+
+        Follow-up questions you could ask:
+        - Which architecture area should I understand first for learning?
+        - Do you want a side-by-side comparison of the four architecture areas?
+        - Would you like a simple end-to-end view of how these architecture layers connect?
+
+    - kind: EndDialog
+      id: end_topic
+      clearTopicQueue: true

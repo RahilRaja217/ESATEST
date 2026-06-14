@@ -1,0 +1,102 @@
+mcs.metadata:
+  componentName: Architecture
+  description: This topic handles common architecture questions with a narrower retrieval prompt.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Architecture
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Summarise what architecture is used
+      - Summarise the architecture
+      - Tell me about the architecture
+      - What architecture is used
+      - Explain the architecture
+      - How is it architected
+      - Provide a brief architectural overview
+      - Architecture overview
+
+  actions:
+    - kind: ConditionGroup
+      id: architecture_overview_fast_path
+      conditions:
+        - id: is_architecture_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "architecture_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "brief architectural overview"), StartsWith(Lower(System.Activity.Text), "architecture overview"), StartsWith(Lower(System.Activity.Text), "summarise the architecture"), StartsWith(Lower(System.Activity.Text), "tell me about the architecture"), StartsWith(Lower(System.Activity.Text), "what architecture is used"), StartsWith(Lower(System.Activity.Text), "how is it architected"))
+          actions:
+            - kind: SendActivity
+              id: sendActivity_architectureOverviewFast
+              activity: |-
+                Sage Embedded Services architecture is designed as a capability-led model that lets partners embed finance experiences without rebuilding core domain services.
+
+                | Architecture area | What it covers | Typical learning question |
+                | --- | --- | --- |
+                | Experience layer | Embedded UX and channel touchpoints in partner journeys | Where does ESA appear in the end-user journey? |
+                | API and orchestration layer | API interfaces, workflow orchestration, and integration coordination | How do partner systems interact with ESA services? |
+                | Domain capability layer | Core business domains such as accounting, payroll, expense, and carbon | Which capabilities are delivered by ESA domain services? |
+                | Platform and operations layer | Security, environment controls, monitoring, and reliability practices | How is architecture operated securely and reliably at scale? |
+
+                If useful, I can go one level deeper into any architecture area with practical examples and common terminology.
+
+                Follow-up questions you could ask:
+                - Which architecture area should I understand first for learning?
+                - Do you want a side-by-side comparison of the four architecture areas?
+                - Would you like a simple end-to-end view of how these architecture layers connect?
+
+            - kind: EndDialog
+              id: endDialog_architectureOverviewFast
+              clearTopicQueue: true
+
+    - kind: SearchAndSummarizeContent
+      id: search_content_compact
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_A01
+
+      responseConfidence: 0.6
+      generatorInput: Provide a concise, grounded response for Sage Embedded Services architecture for users learning the architecture landscape. Prioritize orientation: architecture layers, core platform components, integration approach, and relationships between layers. Include implementation detail only when explicitly asked. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question.
+
+    - kind: ConditionGroup
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
+          knowledgeSources:
+            kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
+
+          responseConfidence: 0.6
+          generatorInput: Provide a concise summary of Sage Embedded Services architecture. Focus on high-level design, platform components, service boundaries, and integration approach. Explain architecture in clear business and technical terms for users learning ESA. Keep the response short and practical. End with one brief follow-up question.
+
+    - kind: ConditionGroup
+      id: has_answer_conditions
+      conditions:
+        - id: has_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: ReplaceDialog
+          id: replaceDialog_fallback
+          dialog: crc1d_agentB3vfwx.topic.Fallback

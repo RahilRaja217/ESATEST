@@ -8,6 +8,20 @@ beginDialog:
   priority: -1
   actions:
     - kind: ConditionGroup
+      id: architecture_overview_global_guard
+      conditions:
+        - id: is_architecture_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "architecture_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "brief architectural overview"), StartsWith(Lower(System.Activity.Text), "architecture overview"))
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_architectureOverviewQuick
+              dialog: crc1d_agentB3vfwx.topic.ArchitectureOverviewQuick
+
+            - kind: EndDialog
+              id: endDialog_afterArchitectureOverviewQuick
+              clearTopicQueue: true
+
+    - kind: ConditionGroup
       id: api_overview_global_guard
       conditions:
         - id: is_api_overview_prompt
