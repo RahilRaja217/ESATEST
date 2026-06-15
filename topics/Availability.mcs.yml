@@ -36,18 +36,78 @@ beginDialog:
       - Capability families by status
 
   actions:
+    - kind: ConditionGroup
+      id: availability_overview_fast_path
+      conditions:
+        - id: is_availability_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "availability_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "brief capability and availability overview"), StartsWith(Lower(System.Activity.Text), "availability overview"), StartsWith(Lower(System.Activity.Text), "provide me with a capability availability summary"), StartsWith(Lower(System.Activity.Text), "give me a capability availability summary"), StartsWith(Lower(System.Activity.Text), "tell me about capability availability"), StartsWith(Lower(System.Activity.Text), "tell me the capability availability status"))
+          actions:
+            - kind: SendActivity
+              id: sendActivity_availabilityOverviewFast
+              activity: |-
+                Sage Embedded Services availability view helps you understand where capabilities are ready today and how they can be positioned for delivery planning.
+
+                | Availability lens | What it helps answer | Typical learning question |
+                | --- | --- | --- |
+                | Status model | Distinguishes Live, Externally Marketable, and Internal states | What do availability statuses mean in practice? |
+                | Regional coverage | Shows where each capability or sub-capability is available | What is live in the UK or US today? |
+                | Capability structure | Connects capability families, capabilities, and sub-capabilities | How do I trace availability from family to sub-capability? |
+                | Planning signal | Supports rollout sequencing and market positioning decisions | Which items can be sold now versus prepared internally? |
+
+                If useful, I can provide a table for a specific region and status, such as what is live in the UK.
+
+                Follow-up questions you could ask:
+                - What is live in the UK?
+                - What is externally marketable in the US?
+                - Where is General ledger available?
+
+            - kind: EndDialog
+              id: endDialog_availabilityOverviewFast
+              clearTopicQueue: true
+
     - kind: SearchAndSummarizeContent
-      id: search_availability_content
+      id: search_content_compact
       variable: Topic.Answer
       userInput: =System.Activity.Text
-      responseConfidence: 0.2
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - crc1d_agentB3vfwx.file.ESA_Availability_Knowledge.md_o_y
+
+      responseConfidence: 0.6
       generatorInput: "Apply the Availability Orchestration Contract exactly. Answer the user's availability question using grounded evidence first and concise enrichment second. For broad list requests across sub-capabilities, capabilities, capability families, or regions, return exactly three sections in this order with these exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Do not output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless the user explicitly asks for capability status. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry for that sub-capability first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. User question: {System.Activity.Text}"
 
     - kind: ConditionGroup
-      id: answer_conditions
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
+          knowledgeSources:
+            kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
+              - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+
+          responseConfidence: 0.6
+          generatorInput: "Apply the Availability Orchestration Contract exactly. Answer the user's availability question using grounded evidence first and concise enrichment second. For broad list requests across sub-capabilities, capabilities, capability families, or regions, return exactly three sections in this order with these exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Do not output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless the user explicitly asks for capability status. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry for that sub-capability first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. User question: {System.Activity.Text}"
+
+    - kind: ConditionGroup
+      id: has_answer_conditions
       conditions:
         - id: has_answer
-          condition: =And(!IsBlank(Topic.Answer), !StartsWith(Lower(Topic.Answer), "no information was found"))
+          condition: =!IsBlank(Topic.Answer)
           actions:
             - kind: EndDialog
               id: end_topic
