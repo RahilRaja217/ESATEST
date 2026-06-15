@@ -1,0 +1,7 @@
+mcs.metadata:
+  componentName: Sage Embedded Services Playbook - FY26Q2.pptx
+  description: This knowledge source provides information found in Sage Embedded Services Playbook - FY26Q2.pptx SharePoint.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: SharePointSearchSource
+  site: https://sage365.sharepoint.com/sites/EmbeddedServicesCopy/Shared%20Documents/ES6%20-%20Product%20Marketing/ES%20Proposition%20and%20Playbook/Sage%20Embedded%20Services%20Playbook%20-%20FY26Q2.pptx

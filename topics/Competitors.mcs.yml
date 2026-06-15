@@ -93,6 +93,9 @@ beginDialog:
 
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.SageEmbeddedServicesPlaybookFY26Q2pptx_e_BfHURNSfxe5SCCjEknK
+              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
 
     - kind: ConditionGroup
       id: has_answer_conditions

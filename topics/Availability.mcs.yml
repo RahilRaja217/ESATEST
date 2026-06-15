@@ -75,8 +75,8 @@ beginDialog:
           files:
             - crc1d_agentB3vfwx.file.ESA_Availability_Knowledge.md_o_y
 
-      responseConfidence: 0.6
       generatorInput: "Apply the Availability Orchestration Contract exactly. Answer the user's availability question using grounded evidence first and concise enrichment second. For broad list requests across sub-capabilities, capabilities, capability families, or regions, return exactly three sections in this order with these exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Do not output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless the user explicitly asks for capability status. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry for that sub-capability first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. User question: {System.Activity.Text}"
+      responseConfidence: 0.6
 
     - kind: ConditionGroup
       id: has_compact_answer_conditions
@@ -93,15 +93,21 @@ beginDialog:
           id: search_content_broad
           variable: Topic.Answer
           userInput: =System.Activity.Text
+          fileSearchDataSource:
+            searchFilesMode:
+              kind: SearchSpecificFiles
+              files:
+                - crc1d_agentB3vfwx.file.ESA_Availability_Knowledge.md_o_y
+
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
-              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
-              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
-          responseConfidence: 0.6
           generatorInput: "Apply the Availability Orchestration Contract exactly. Answer the user's availability question using grounded evidence first and concise enrichment second. For broad list requests across sub-capabilities, capabilities, capability families, or regions, return exactly three sections in this order with these exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Do not output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless the user explicitly asks for capability status. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry for that sub-capability first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. User question: {System.Activity.Text}"
+          responseConfidence: 0.6
 
     - kind: ConditionGroup
       id: has_answer_conditions
@@ -116,13 +122,11 @@ beginDialog:
       elseActions:
         - kind: SendActivity
           id: send_deterministic_availability_recovery
-          activity:
-            text:
-              - |-
-                  I could not find enough grounded information for that exact phrasing.
+          activity: |-
+            I could not find enough grounded information for that exact phrasing.
 
-                  Try asking by region + status, for example: what is live in the UK?
-                  Or ask by named item, for example: where is General ledger available?
+            Try asking by region + status, for example: what is live in the UK?
+            Or ask by named item, for example: where is General ledger available?
 
         - kind: EndDialog
           id: end_topic_after_recovery
