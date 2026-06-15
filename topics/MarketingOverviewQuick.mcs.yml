@@ -40,3 +40,4 @@ beginDialog:
     - kind: EndDialog
       id: end_topic
       clearTopicQueue: true
+
