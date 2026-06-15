@@ -15,14 +15,76 @@ beginDialog:
       - Explain the marketing proposition
       - Summarise the value proposition
       - What is the value proposition
+      - Provide a brief marketing overview
+      - Marketing overview
 
   actions:
+    - kind: ConditionGroup
+      id: marketing_overview_fast_path
+      conditions:
+        - id: is_marketing_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "marketing_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "brief marketing overview"), StartsWith(Lower(System.Activity.Text), "marketing overview"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on marketing"), StartsWith(Lower(System.Activity.Text), "summarise the marketing proposition"), StartsWith(Lower(System.Activity.Text), "tell me about the marketing proposition"), StartsWith(Lower(System.Activity.Text), "what is the marketing proposition"), StartsWith(Lower(System.Activity.Text), "summarise the value proposition"), StartsWith(Lower(System.Activity.Text), "what is the value proposition"))
+          actions:
+            - kind: SendActivity
+              id: sendActivity_marketingOverviewFast
+              activity: |-
+                Sage Embedded Services marketing proposition centers on helping partners embed finance capabilities directly into their user journeys so they can deliver customer value faster, with lower delivery effort and stronger operational confidence.
+
+                | Marketing pillar | What it emphasizes | Typical learning question |
+                | --- | --- | --- |
+                | Business value | Clear outcomes such as speed, efficiency, and growth support | What business outcomes does ESA help partners achieve? |
+                | Product differentiation | Embedded finance experiences integrated into partner products | How does ESA help partners differentiate their offer? |
+                | Capability breadth | Coverage across accounting, expense, carbon, and payroll domains | Which capability areas can partners bring to market? |
+                | Trust and scale | Reliable operations, governance, and enterprise-ready controls | Why is ESA positioned as a trusted embedded platform? |
+
+                If useful, I can go one level deeper into any marketing pillar with practical examples and positioning language.
+
+                Follow-up questions you could ask:
+                - Which marketing pillar should I lead with for an executive audience?
+                - Do you want a short value message tailored for product, sales, or delivery teams?
+                - Would you like a side-by-side summary of ESA outcomes versus common partner pain points?
+
+            - kind: EndDialog
+              id: endDialog_marketingOverviewFast
+              clearTopicQueue: true
+
     - kind: SearchAndSummarizeContent
-      id: search_content
+      id: search_content_compact
       variable: Topic.Answer
-      userInput: Summarise the marketing proposition for Sage embedded services.
+      userInput: =System.Activity.Text
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - crc1d_agentB3vfwx.file.ESA_Marketing_Summary_Compact.md_M01
+
       responseConfidence: 0.6
       generatorInput: Provide a concise summary of the marketing proposition for Sage embedded services. Focus on value proposition, benefits, and positioning. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
+          knowledgeSources:
+            kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
+
+          responseConfidence: 0.6
+          generatorInput: Provide a concise summary of the marketing proposition for Sage embedded services. Focus on value proposition, benefits, and positioning. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
 
     - kind: ConditionGroup
       id: has_answer_conditions
