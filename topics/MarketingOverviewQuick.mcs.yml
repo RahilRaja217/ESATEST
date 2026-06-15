@@ -16,6 +16,16 @@ beginDialog:
       - Brief marketing overview
       - Marketing overview
       - Provide a brief overview on marketing
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity

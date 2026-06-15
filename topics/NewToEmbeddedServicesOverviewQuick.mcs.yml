@@ -14,6 +14,16 @@ beginDialog:
       - Please help me get started with ESA
       - Can you help me get started with ESA
       - First steps with ESA
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity

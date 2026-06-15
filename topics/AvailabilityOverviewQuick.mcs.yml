@@ -15,6 +15,16 @@ beginDialog:
       - Can you provide a brief overview on capability and availability
       - Brief capability and availability overview
       - Availability overview
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity

@@ -14,6 +14,16 @@ beginDialog:
       - Please provide a brief summary on how ESA can support answering tender questions
       - Can you provide a brief summary on how ESA can support answering tender questions
       - Brief tenders overview
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity

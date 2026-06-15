@@ -14,6 +14,7 @@ beginDialog:
     includeInOnSelectIntent: false
     triggerQueries:
       - Escalate
+      - Send message
       - Send a message
       - Send a message to the team
       - Send my message to the team
