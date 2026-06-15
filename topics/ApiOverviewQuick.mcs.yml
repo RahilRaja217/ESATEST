@@ -15,6 +15,16 @@ beginDialog:
       - Can you provide a brief API overview
       - Brief API overview
       - API overview
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity

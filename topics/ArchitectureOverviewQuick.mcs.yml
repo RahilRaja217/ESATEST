@@ -15,6 +15,16 @@ beginDialog:
       - Can you provide a brief architectural overview
       - Brief architectural overview
       - Architecture overview
+    suggestedActions:
+      - "New to ESA?"
+      - "APIs"
+      - "Architecture"
+      - "Availability"
+      - "Marketing"
+      - "Tenders"
+      - "Competitors"
+      - "Send message"
+      - "Reset"
 
   actions:
     - kind: SendActivity
