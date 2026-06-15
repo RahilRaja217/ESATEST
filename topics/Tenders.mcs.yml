@@ -1,0 +1,105 @@
+mcs.metadata:
+  componentName: Tenders
+  description: This topic handles questions about how ESA can support answering tender, RFI, and RFP questions.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Tenders
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Provide a brief summary on how ESA can support answering tender questions
+      - How can ESA support tenders
+      - Tell me about tender support
+      - How does ESA help with RFI and RFP
+      - What tender support does ESA provide
+      - Summarise ESA tender support
+      - Can ESA help with tender questions
+
+  actions:
+    - kind: ConditionGroup
+      id: tenders_overview_fast_path
+      conditions:
+        - id: is_tenders_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "tenders_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "how can esa support tenders"), StartsWith(Lower(System.Activity.Text), "tell me about tender support"), StartsWith(Lower(System.Activity.Text), "how does esa help with rfi and rfp"), StartsWith(Lower(System.Activity.Text), "what tender support does esa provide"), StartsWith(Lower(System.Activity.Text), "summarise esa tender support"))
+          actions:
+            - kind: SendActivity
+              id: sendActivity_tendersOverviewFast
+              activity: |-
+                Sage Embedded Services can support partners and pre-sales teams in responding to RFI and RFP tender questionnaires with grounded, consistent evidence across capabilities, availability, architecture, and proposition.
+
+                | Tender area | What ESA can help answer | Typical tender question |
+                | --- | --- | --- |
+                | Capability coverage | Which finance capabilities are available and in which regions | What accounting or payroll capabilities are supported? |
+                | Availability and roadmap | What is live, externally marketable, or internal by region | What is currently live in the UK or US? |
+                | Integration and architecture | How ESA integrates with partner platforms and systems | How does ESA connect with existing partner workflows? |
+                | Security and compliance | Platform security controls, data governance, and certifications | What security standards does ESA comply with? |
+                | Commercial and proposition | Pricing model, partner engagement, and value delivery | How is ESA commercially structured for partners? |
+                | Reference examples | Existing partner use cases that demonstrate real-world delivery | Can ESA provide examples of live partner implementations? |
+
+                If useful, I can go deeper into any tender area with specific evidence and suggested answer language.
+
+                Follow-up questions you could ask:
+                - Which tender area should I focus on first for an RFI response?
+                - Do you want suggested answer language for a specific tender question?
+                - Would you like a summary of what ESA reference examples are available?
+
+            - kind: EndDialog
+              id: endDialog_tendersOverviewFast
+              clearTopicQueue: true
+
+    - kind: SearchAndSummarizeContent
+      id: search_content_compact
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - crc1d_agentB3vfwx.file.ESA_Tenders_Summary_Compact.md_T01
+
+      responseConfidence: 0.6
+      generatorInput: Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
+          knowledgeSources:
+            kind: SearchSpecificKnowledgeSources
+            knowledgeSources:
+              - crc1d_agentB3vfwx.topic.HSBCMBFxlsx_dbNEdy2mDZ8wEMJmK49SZ
+              - crc1d_agentB3vfwx.topic.HSBCxlsx_Pc953eIPoM1ITnowwWdLL
+              - crc1d_agentB3vfwx.topic.Monzoxlsx_ddRBCgfVx0RbrXQqjAcmq
+              - crc1d_agentB3vfwx.topic.SumUpxlsx_eqAg0t5sbJ1HJYqzMrJEs
+              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
+
+          responseConfidence: 0.6
+          generatorInput: Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_answer_conditions
+      conditions:
+        - id: has_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: ReplaceDialog
+          id: replaceDialog_fallback
+          dialog: crc1d_agentB3vfwx.topic.Fallback

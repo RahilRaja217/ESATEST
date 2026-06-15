@@ -1,0 +1,42 @@
+mcs.metadata:
+  componentName: Tenders Overview Quick
+  description: Deterministic quick overview response for tenders overview prompts.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Tenders Overview Quick
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - TENDERS_OVERVIEW_QUICK
+      - Provide a brief summary on how ESA can support answering tender questions
+      - Please provide a brief summary on how ESA can support answering tender questions
+      - Can you provide a brief summary on how ESA can support answering tender questions
+      - Brief tenders overview
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_tendersOverviewQuick
+      activity: |-
+        Sage Embedded Services can support partners and pre-sales teams in responding to RFI and RFP tender questionnaires with grounded, consistent evidence across capabilities, availability, architecture, and proposition.
+
+        | Tender area | What ESA can help answer | Typical tender question |
+        | --- | --- | --- |
+        | Capability coverage | Which finance capabilities are available and in which regions | What accounting or payroll capabilities are supported? |
+        | Availability and roadmap | What is live, externally marketable, or internal by region | What is currently live in the UK or US? |
+        | Integration and architecture | How ESA integrates with partner platforms and systems | How does ESA connect with existing partner workflows? |
+        | Security and compliance | Platform security controls, data governance, and certifications | What security standards does ESA comply with? |
+        | Commercial and proposition | Pricing model, partner engagement, and value delivery | How is ESA commercially structured for partners? |
+        | Reference examples | Existing partner use cases that demonstrate real-world delivery | Can ESA provide examples of live partner implementations? |
+
+        If useful, I can go deeper into any tender area with specific evidence and suggested answer language.
+
+        Follow-up questions you could ask:
+        - Which tender area should I focus on first for an RFI response?
+        - Do you want suggested answer language for a specific tender question?
+        - Would you like a summary of what ESA reference examples are available?
+
+    - kind: EndDialog
+      id: end_topic
+      clearTopicQueue: true
