@@ -59,8 +59,11 @@ beginDialog:
           files:
             - crc1d_agentB3vfwx.file.ESA_Tenders_Summary_Compact.md_T01
 
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+
+      generatorInput: "Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect."
       responseConfidence: 0.6
-      generatorInput: Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
 
     - kind: ConditionGroup
       id: has_compact_answer_conditions
@@ -77,17 +80,22 @@ beginDialog:
           id: search_content_broad
           variable: Topic.Answer
           userInput: =System.Activity.Text
+          fileSearchDataSource:
+            searchFilesMode:
+              kind: SearchSpecificFiles
+              files:
+                - crc1d_agentB3vfwx.file.ESA_Tenders_Summary_Compact.md_T01
+
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
+              - crc1d_agentB3vfwx.topic.SumUpxlsx_eqAg0t5sbJ1HJYqzMrJEs
               - crc1d_agentB3vfwx.topic.HSBCMBFxlsx_dbNEdy2mDZ8wEMJmK49SZ
               - crc1d_agentB3vfwx.topic.HSBCxlsx_Pc953eIPoM1ITnowwWdLL
               - crc1d_agentB3vfwx.topic.Monzoxlsx_ddRBCgfVx0RbrXQqjAcmq
-              - crc1d_agentB3vfwx.topic.SumUpxlsx_eqAg0t5sbJ1HJYqzMrJEs
-              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
 
+          generatorInput: "Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect."
           responseConfidence: 0.6
-          generatorInput: Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
 
     - kind: ConditionGroup
       id: has_answer_conditions

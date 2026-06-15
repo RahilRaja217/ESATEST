@@ -60,8 +60,11 @@ beginDialog:
           files:
             - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
 
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+
+      generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step."
       responseConfidence: 0.6
-      generatorInput: Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step.
 
     - kind: ConditionGroup
       id: has_compact_answer_conditions
@@ -78,15 +81,21 @@ beginDialog:
           id: search_content_broad
           variable: Topic.Answer
           userInput: =System.Activity.Text
+          fileSearchDataSource:
+            searchFilesMode:
+              kind: SearchSpecificFiles
+              files:
+                - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
+
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
-              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
               - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
-              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
+              - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
+              - crc1d_agentB3vfwx.topic.SageEmbeddedServicesPlaybookFY26Q2pptx_e_BfHURNSfxe5SCCjEknK
 
+          generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step."
           responseConfidence: 0.6
-          generatorInput: Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step.
 
     - kind: ConditionGroup
       id: has_answer_conditions
