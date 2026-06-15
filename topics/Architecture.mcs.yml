@@ -58,8 +58,11 @@ beginDialog:
           files:
             - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_A01
 
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+
+      generatorInput: "Provide a concise, grounded response for Sage Embedded Services architecture for users learning the architecture landscape. Prioritize orientation: architecture layers, core platform components, integration approach, and relationships between layers. Include implementation detail only when explicitly asked. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question."
       responseConfidence: 0.6
-      generatorInput: Provide a concise, grounded response for Sage Embedded Services architecture for users learning the architecture landscape. Prioritize orientation: architecture layers, core platform components, integration approach, and relationships between layers. Include implementation detail only when explicitly asked. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question.
 
     - kind: ConditionGroup
       id: has_compact_answer_conditions
@@ -76,15 +79,20 @@ beginDialog:
           id: search_content_broad
           variable: Topic.Answer
           userInput: =System.Activity.Text
+          fileSearchDataSource:
+            searchFilesMode:
+              kind: SearchSpecificFiles
+              files:
+                - crc1d_agentB3vfwx.file.ESA_API_Summary_Compact.md_QM0
+
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
               - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
-              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
-          responseConfidence: 0.6
           generatorInput: Provide a concise summary of Sage Embedded Services architecture. Focus on high-level design, platform components, service boundaries, and integration approach. Explain architecture in clear business and technical terms for users learning ESA. Keep the response short and practical. End with one brief follow-up question.
+          responseConfidence: 0.6
 
     - kind: ConditionGroup
       id: has_answer_conditions
