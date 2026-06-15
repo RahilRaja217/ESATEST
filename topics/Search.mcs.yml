@@ -91,6 +91,20 @@ beginDialog:
               id: endDialog_afterTendersOverviewQuick
               clearTopicQueue: true
 
+    - kind: ConditionGroup
+      id: new_to_esa_overview_global_guard
+      conditions:
+        - id: is_new_to_esa_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_newToEsaOverviewQuick
+              dialog: crc1d_agentB3vfwx.topic.NewToEmbeddedServicesOverviewQuick
+
+            - kind: EndDialog
+              id: endDialog_afterNewToEsaOverviewQuick
+              clearTopicQueue: true
+
     - kind: SearchAndSummarizeContent
       id: hWDUzp
       variable: Topic.GroundedAnswer

@@ -1,0 +1,43 @@
+mcs.metadata:
+  componentName: New to Embedded Services Overview Quick
+  description: Deterministic quick overview response for new to ESA prompts.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: New to Embedded Services Overview Quick
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - NEW_TO_ESA_OVERVIEW_QUICK
+      - I'm new to embedded services. Where should I start
+      - Please help me get started with ESA
+      - Can you help me get started with ESA
+      - First steps with ESA
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_newToEsaOverviewQuick
+      activity: |-
+        Welcome to Sage Embedded Services! Here's a quick orientation to help you get started and find what you need.
+
+        | Learning path | What you'll understand | Best for |
+        | --- | --- | --- |
+        | Architecture | How ESA is designed and how pieces fit together | Technical leads, architects, integration teams |
+        | APIs | What capabilities are exposed and how to call them | Developers, technical delivery |
+        | Availability | What is ready now and what's coming | Product managers, commercial teams, pre-sales |
+        | Marketing | The value proposition and competitive positioning | Sales teams, executives, partners |
+        | Tenders | How to answer RFI/RFP questions with evidence | Pre-sales, bid teams |
+
+        ESA helps partners embed finance capabilities (accounting, expense, payroll, carbon) directly into applications so end users experience finance workflows in-context.
+
+        Follow-up questions you could ask:
+        - Give me a learning overview of ESA APIs
+        - Provide a brief architectural overview
+        - What is live in the UK
+        - Provide a brief marketing overview
+        - Tell me about tender support
+
+    - kind: EndDialog
+      id: end_topic
+      clearTopicQueue: true
