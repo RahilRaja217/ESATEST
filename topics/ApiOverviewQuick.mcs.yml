@@ -22,8 +22,7 @@ beginDialog:
       - "Availability"
       - "Marketing"
       - "Tenders"
-      - "Competitors"
-      - "Send message"
+      - "Competitors"`r`n      - "Contacts"`r`n      - "Send message"
       - "Reset"
 
   actions:
@@ -49,3 +48,4 @@ beginDialog:
     - kind: EndDialog
       id: end_topic
       clearTopicQueue: true
+

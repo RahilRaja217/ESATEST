@@ -94,6 +94,9 @@ conversationStarters:
   - title: Competitors
     text: COMPETITORS_OVERVIEW_QUICK
 
+  - title: Contacts
+    text: Escalate
+
   - title: Send message
     text: Escalate
 

@@ -14,6 +14,7 @@ beginDialog:
     includeInOnSelectIntent: false
     triggerQueries:
       - Escalate
+      - Contacts
       - Send message
       - Send a message
       - Send a message to the team
