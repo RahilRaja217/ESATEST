@@ -73,32 +73,32 @@ gptCapabilities:
   webBrowsing: false
 
 conversationStarters:
-  - title: Reset
-    text: Reset
-
-  - title: New to Embedded Services?
-    text: I'm new to embedded services. Where should I start?
+  - title: New to ESA?
+    text: NEW_TO_ESA_OVERVIEW_QUICK
 
   - title: APIs
-    text: Provide a brief API overview.
+    text: API_OVERVIEW_QUICK
 
   - title: Architecture
-    text: Provide a brief architectural overview.
+    text: ARCHITECTURE_OVERVIEW_QUICK
 
   - title: Availability
-    text: Provide a brief overview on capability and availability.
+    text: AVAILABILITY_OVERVIEW_QUICK
 
   - title: Marketing
-    text: Provide a brief overview on marketing.
+    text: MARKETING_OVERVIEW_QUICK
 
   - title: Tenders
-    text: Provide a brief summary on how ESA can support answering tender questions.
+    text: TENDERS_OVERVIEW_QUICK
 
   - title: Competitors
-    text: Provide a brief overview on competitors.
+    text: COMPETITORS_OVERVIEW_QUICK
 
-  - title: Send a message
+  - title: Send message
     text: Escalate
+
+  - title: Reset
+    text: Reset
 
 aISettings:
   model:
