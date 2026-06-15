@@ -47,9 +47,33 @@ beginDialog:
               clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
-      id: search_content_broad
+      id: search_content_compact
       variable: Topic.Answer
       userInput: =System.Activity.Text
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - crc1d_agentB3vfwx.file.ESA_Competitors_Summary_Compact.md_C01
+
+      responseConfidence: 0.6
+      generatorInput: Provide a concise summary of the competitive strategy for Sage embedded services. Focus on differentiation, positioning, and competitive themes. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+
+    - kind: ConditionGroup
+      id: has_compact_answer_conditions
+      conditions:
+        - id: has_compact_answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end_topic_compact
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SearchAndSummarizeContent
+          id: search_content_broad
+          variable: Topic.Answer
+          userInput: =System.Activity.Text
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
         knowledgeSources:
@@ -57,8 +81,8 @@ beginDialog:
           - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
           - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
-      responseConfidence: 0.6
-      generatorInput: Provide a concise summary of the competitive strategy for Sage embedded services. Focus on differentiation, positioning, and competitive themes. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
+          responseConfidence: 0.6
+          generatorInput: Provide a concise summary of the competitive strategy for Sage embedded services. Focus on differentiation, positioning, and competitive themes. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. End with one brief follow-up question that offers to go deeper into a relevant aspect.
 
     - kind: ConditionGroup
       id: has_answer_conditions
