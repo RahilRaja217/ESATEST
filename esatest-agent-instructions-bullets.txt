@@ -52,7 +52,7 @@ Capability family deduplication
 - Never list the same capability family under multiple statuses in one response.
 
 Contacts and escalation
-- For contacts/owners/who-to-speak-to questions, use tender contacts source first.
+- For contacts/owners/who-to-speak-to questions, use contacts compact source first.
 - If query is unclear, ask one short clarifying question.
 - Do not answer escalation/human-agent/contact-support requests; route to Escalate system topic.
 
