@@ -27,7 +27,7 @@ beginDialog:
       id: contacts_overview_fast_path
       conditions:
         - id: is_contacts_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "contacts_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "brief contacts overview"), StartsWith(Lower(System.Activity.Text), "contacts overview"), StartsWith(Lower(System.Activity.Text), "who are the contacts"), StartsWith(Lower(System.Activity.Text), "show me the contacts"), StartsWith(Lower(System.Activity.Text), "contacts"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "contacts_overview"), StartsWith(Lower(System.Activity.Text), "contacts_overview_quick"), StartsWith(Lower(System.Activity.Text), "contacts"), StartsWith(Lower(System.Activity.Text), "provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "brief contacts overview"), StartsWith(Lower(System.Activity.Text), "contacts overview"), StartsWith(Lower(System.Activity.Text), "who are the contacts"), StartsWith(Lower(System.Activity.Text), "show me the contacts"), StartsWith(Lower(System.Activity.Text), "contacts"))
           actions:
             - kind: SendActivity
               id: sendActivity_contactsOverviewFast

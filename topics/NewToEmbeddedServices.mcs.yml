@@ -22,7 +22,7 @@ beginDialog:
       id: new_to_esa_overview_fast_path
       conditions:
         - id: is_new_to_esa_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview"), StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "new to esa?"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview"), StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "new to esa?"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
           actions:
             - kind: SendActivity
               id: sendActivity_newToEsaOverviewFast
