@@ -37,7 +37,12 @@ beginDialog:
                 | Capability breadth | Coverage across accounting, expense, carbon, and payroll | Which capability areas can partners bring to market? |
                 | Trust and scale | Reliable operations, governance, and enterprise-ready controls | Why is ESA positioned as a trusted embedded platform? |
 
-                Ask me anything about a specific pillar, or ask for positioning language for a specific audience.
+                This proposition is strongest when tailored by audience while keeping the same core value narrative.
+
+                Suggested questions:
+                - Give me marketing messaging for an executive audience.
+                - How should ESA be positioned versus point solutions?
+                - Map the four pillars to common partner pain points.
 
             - kind: EndDialog
               id: endDialog_marketingOverviewFast
@@ -56,6 +61,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise summary of the marketing proposition for Sage embedded services. Focus on value proposition, benefits, and positioning. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -83,9 +89,10 @@ beginDialog:
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.SageEmbeddedServicesPlaybookFY26Q2pptx_e_BfHURNSfxe5SCCjEknK
-              - crc1d_agentB3vfwx.topic.ESPropositionandPackagingpptx_Ttnb8VcfMTGou1GXlpITR
 
+          applyModelKnowledgeSetting: false
           generatorInput: "Provide a concise summary of the marketing proposition for Sage embedded services. Focus on value proposition, benefits, and positioning. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 

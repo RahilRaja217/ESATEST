@@ -69,8 +69,10 @@ instructions: |
   Follow-up question rule
   - End substantive answers with one brief follow-up question.
   - Exception: region + status list requests that require table-only output (no extra text outside table).
+responseInstructions:
 gptCapabilities:
   webBrowsing: false
+  codeInterpreter: false
 
 conversationStarters:
   - title: New to ESA?
@@ -104,5 +106,6 @@ conversationStarters:
     text: Reset
 
 aISettings:
-  model:
-    modelNameHint: Sonnet46
+  model: {}
+  extensionData:
+    lastUsedCustomModel: {}

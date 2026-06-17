@@ -1,7 +1,8 @@
 mcs.metadata:
-  componentName: https://sage.com
+  componentName: https://www.sage.com/en-gb/sage-embedded-services/
   description: This knowledge source searches information on the web found in https://sage.com website
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
+  triggerCondition: true
   site: https://sage.com

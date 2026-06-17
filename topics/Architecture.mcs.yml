@@ -37,7 +37,12 @@ beginDialog:
                 | Domain capability layer | Core business domains: accounting, payroll, expense, and carbon | Which capabilities are delivered by ESA domain services? |
                 | Platform and operations layer | Security, environment controls, monitoring, and reliability | How is architecture operated securely at scale? |
 
-                Ask me anything about a specific layer, or ask about APIs, availability, or other topics.
+                This architecture view helps align business outcomes, integration approach, and operational control in one model.
+
+                Suggested questions:
+                - How do the API and orchestration layer and domain capability layer interact in practice?
+                - What controls sit in the platform and operations layer?
+                - Give me an end-to-end flow across the four architecture layers.
 
             - kind: EndDialog
               id: endDialog_architectureOverviewFast
@@ -55,7 +60,10 @@ beginDialog:
 
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise, grounded response for Sage Embedded Services architecture for users learning the architecture landscape. Prioritize orientation: architecture layers, core platform components, integration approach, and relationships between layers. Include implementation detail only when explicitly asked. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -83,7 +91,7 @@ beginDialog:
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
-              - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
           generatorInput: Provide a concise summary of Sage Embedded Services architecture. Focus on high-level design, platform components, service boundaries, and integration approach. Explain architecture in clear business and technical terms for users learning ESA. Keep the response short and practical. Do not ask follow-up questions or add extra suggestions unless the user asks for them.

@@ -35,7 +35,12 @@ beginDialog:
                 | Embedded Carbon Accounting | Carbon footprint tracking and reporting | Surface carbon data within a partner product |
                 | Embedded Payroll | Payroll processing and integration | Deliver payroll capability through a partner journey |
 
-                Ask me anything about a specific API area, or ask about architecture, availability, or other topics.
+                This overview is best used as a map of capability domains before diving into endpoint-level or integration detail.
+
+                Suggested questions:
+                - Which API area is most commonly used first in partner implementations?
+                - Compare Embedded Accounting and Embedded Expense Management at a capability level.
+                - Which API areas are currently live by region?
 
             - kind: EndDialog
               id: endDialog_apiOverviewFast
@@ -51,6 +56,7 @@ beginDialog:
           files:
             - crc1d_agentB3vfwx.file.ESA_API_Summary_Compact.md_QM0
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise, grounded response for Sage embedded services APIs for users learning about the ESA API landscape. Prioritize clear orientation: what each API area covers, how capabilities relate, and key terminology. Include implementation detail only when the user explicitly asks for build or delivery guidance. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -78,9 +84,10 @@ beginDialog:
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
             knowledgeSources:
-              - crc1d_agentB3vfwx.topic.httpsinternaldevelopersagecomdevxexplore_VDzuyrkvYRYf2ogT8Y0LN
+              - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
+          applyModelKnowledgeSetting: false
           generatorInput: "Provide a concise, grounded response for Sage embedded services APIs for users learning about the ESA API landscape. Prioritize clear orientation: what each API area covers, how capabilities relate, and key terminology. Include implementation detail only when the user explicitly asks for build or delivery guidance. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 

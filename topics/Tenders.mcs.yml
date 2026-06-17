@@ -37,7 +37,12 @@ beginDialog:
                 | Security and compliance | Platform security controls, data governance, and certifications | What security standards does ESA comply with? |
                 | Commercial and proposition | Pricing model, partner engagement, and value delivery | How is ESA commercially structured for partners? |
 
-                Ask me for suggested answer language for any tender area, or ask about a specific capability or region.
+                This structure helps produce consistent, evidence-based tender responses across technical and commercial sections.
+
+                Suggested questions:
+                - Draft answer language for security and compliance.
+                - What capability evidence is strongest for an RFP response?
+                - Which availability statements are suitable for UK and US tender questions?
 
             - kind: EndDialog
               id: endDialog_tendersOverviewFast
@@ -57,6 +62,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -90,6 +96,7 @@ beginDialog:
               - crc1d_agentB3vfwx.topic.HSBCxlsx_Pc953eIPoM1ITnowwWdLL
               - crc1d_agentB3vfwx.topic.Monzoxlsx_ddRBCgfVx0RbrXQqjAcmq
 
+          applyModelKnowledgeSetting: false
           generatorInput: "Provide a concise summary of how Sage Embedded Services can support answering tender, RFI, and RFP questions. Focus on capability evidence, availability data, proposition content, and reference examples. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused, with plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 

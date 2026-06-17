@@ -186,8 +186,8 @@ beginDialog:
           id: search_generative_fallback
           variable: Topic.GenerativeAnswer
           userInput: =System.Activity.Text
-          responseConfidence: 0.2
           generatorInput: "Provide a best-effort answer using the Availability Orchestration Contract for availability questions. Use Availability status only for grouping and labels; ignore Capability status unless explicitly asked. Never output labels like Live (Externally Marketable) or Live (Internal). For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. For named sub-capability regional answers, use the Sub-capability Regional Status Index entry first, then verify against explicit Detailed Availability Records rows before listing regions, and do not claim missing explicit records when rows exist. If evidence is partial, start with 'Based on available records'. Never output citation markers or the phrase 'No information was found that could help answer this.' Keep the answer short and practical. Do not add follow-up questions or suggestions unless explicitly requested by the user. User question: {System.Activity.Text}"
+          responseConfidence: 0.2
 
         - kind: ConditionGroup
           id: generative_answer_conditions
@@ -203,8 +203,6 @@ beginDialog:
             - kind: SendActivity
               id: send_deterministic_recovery
               activity:
-                text:
-                  - I couldn't find enough grounded information to answer that reliably. Try capability + status phrasing, for example: Where is Invoicing live? or In which regions is Tax Filing externally marketable?
 
             - kind: EndDialog
               id: end_topic_after_recovery

@@ -44,7 +44,12 @@ beginDialog:
                 | Marketing | Phil Catt, Kate Butler, Avril Crowley, Erin Roesch | Yes |
                 | Product (adjacent) | Adrian Malpass, Joanne Pringle, Nicholas Timon | No |
 
-                ES = Yes means the person is employed within Embedded Services. Ask me about a specific person, role, or team.
+                ES = Yes means the person is employed within Embedded Services.
+
+                Suggested questions:
+                - Who should I contact for partner success?
+                - Show ES = Yes contacts only.
+                - Who reports to Sean O'Keefe?
 
             - kind: EndDialog
               id: endDialog_contactsOverviewFast
@@ -63,6 +68,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise, grounded answer about Embedded Services contacts using the contacts compact file as the only source. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -89,12 +95,8 @@ beginDialog:
 
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
-            knowledgeSources:
-              - crc1d_agentB3vfwx.topic.SumUpxlsx_eqAg0t5sbJ1HJYqzMrJEs
-              - crc1d_agentB3vfwx.topic.HSBCMBFxlsx_dbNEdy2mDZ8wEMJmK49SZ
-              - crc1d_agentB3vfwx.topic.HSBCxlsx_Pc953eIPoM1ITnowwWdLL
-              - crc1d_agentB3vfwx.topic.Monzoxlsx_ddRBCgfVx0RbrXQqjAcmq
 
+          applyModelKnowledgeSetting: false
           generatorInput: "Provide a concise, grounded answer about Embedded Services contacts. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 

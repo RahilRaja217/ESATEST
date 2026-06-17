@@ -37,7 +37,12 @@ beginDialog:
                 | Marketing | The value proposition and competitive positioning | Sales teams, executives, partners |
                 | Tenders | How to answer RFI/RFP questions with evidence | Pre-sales, bid teams |
 
-                ESA helps partners embed finance capabilities (accounting, expense, payroll, carbon) directly into applications. Ask me about any of the paths above to go deeper.
+                ESA helps partners embed finance capabilities (accounting, expense, payroll, carbon) directly into applications.
+
+                Suggested questions:
+                - Give me a brief API overview.
+                - Provide a brief architectural overview.
+                - What is live in the UK?
 
             - kind: EndDialog
               id: endDialog_newToEsaOverviewFast
@@ -57,6 +62,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
+      applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
@@ -79,7 +85,6 @@ beginDialog:
             searchFilesMode:
               kind: SearchSpecificFiles
               files:
-                - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
                 - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_feI
 
           knowledgeSources:
@@ -87,8 +92,8 @@ beginDialog:
             knowledgeSources:
               - crc1d_agentB3vfwx.topic.httpssagecom_3Ijpcu6hjQsZdnjvUo6d7
               - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
-              - crc1d_agentB3vfwx.topic.SageEmbeddedServicesPlaybookFY26Q2pptx_e_BfHURNSfxe5SCCjEknK
 
+          applyModelKnowledgeSetting: false
           generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 
