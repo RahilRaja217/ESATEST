@@ -1,3 +1,7 @@
 ﻿connectionReferences:
+  - connectionReferenceLogicalName: new_sharedcommondataserviceforapps_a1ed0
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+  - connectionReferenceLogicalName: new_sharedpowervirtualagents_87440
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_powervirtualagents
   - connectionReferenceLogicalName: new_sharedteams_c93cd
     connectorId: /providers/Microsoft.PowerApps/apis/shared_teams
