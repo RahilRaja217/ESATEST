@@ -9,6 +9,7 @@ beginDialog:
     displayName: Contacts Overview Quick
     includeInOnSelectIntent: false
     triggerQueries:
+      - CONTACTS_OVERVIEW
       - CONTACTS_OVERVIEW_QUICK
       - Provide a brief contacts overview
       - Please provide a brief contacts overview
@@ -30,29 +31,9 @@ beginDialog:
       - "Reset"
 
   actions:
-    - kind: SendActivity
-      id: sendActivity_contactsOverviewQuick
-      activity: |-
-        The Embedded Services contacts directory covers 52 people across ES and adjacent teams.
-
-        | Area | Key contacts | ES |
-        | --- | --- | --- |
-        | Leadership | Gordon Stuart (SVP), Jonathan Cowan (EVP) | Yes / No |
-        | Continuous Innovation | Sean O'Keefe, Terrence Trench, Kayleigh Henderson | Yes |
-        | Partner Success | Tara Ellis, Mags Fulker | Yes |
-        | Developer Services | James Coleman, Darren Liddell, Rahil Raja | Yes |
-        | Support & Escalation | Richard Lord, Ify Okafor, Himesh Patel | Yes |
-        | Marketing | Phil Catt, Kate Butler, Avril Crowley, Erin Roesch | Yes |
-        | Product (adjacent) | Adrian Malpass, Joanne Pringle, Nicholas Timon | No |
-
-        ES = Yes means the person is employed within Embedded Services. ES = No means they are in an adjacent or partner team.
-
-        Follow-up questions you could ask:
-        - Who should I contact for partner success?
-        - Show me ES = Yes contacts only.
-        - Who reports to Sean O'Keefe?
-        - Who is the best contact for product marketing?
-        - Show me all support engineers and their reporting lines.
+    - kind: BeginDialog
+      id: beginDialog_contacts
+      dialog: crc1d_agentB3vfwx.topic.Contacts
 
     - kind: EndDialog
       id: end_topic

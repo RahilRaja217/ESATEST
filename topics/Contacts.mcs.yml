@@ -29,33 +29,37 @@ beginDialog:
         - id: is_contacts_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "contacts_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "brief contacts overview"), StartsWith(Lower(System.Activity.Text), "contacts overview"), StartsWith(Lower(System.Activity.Text), "who are the contacts"), StartsWith(Lower(System.Activity.Text), "show me the contacts"), StartsWith(Lower(System.Activity.Text), "contacts"))
           actions:
-            - kind: SendActivity
-              id: sendActivity_contactsOverviewFast
-              activity: |-
-                The Embedded Services contacts directory covers 52 people across ES and adjacent teams.
+            - kind: SearchAndSummarizeContent
+              id: search_content_compact_fast
+              variable: Topic.Answer
+              userInput: =System.Activity.Text
+              fileSearchDataSource:
+                searchFilesMode:
+                  kind: SearchSpecificFiles
+                  files:
+                    - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_C01
 
-                | Area | Key contacts | ES |
-                | --- | --- | --- |
-                | Leadership | Gordon Stuart (SVP), Jonathan Cowan (EVP) | Yes / No |
-                | Continuous Innovation | Sean O'Keefe, Terrence Trench, Kayleigh Henderson | Yes |
-                | Partner Success | Tara Ellis, Mags Fulker | Yes |
-                | Developer Services | James Coleman, Darren Liddell, Rahil Raja | Yes |
-                | Support & Escalation | Richard Lord, Ify Okafor, Himesh Patel | Yes |
-                | Marketing | Phil Catt, Kate Butler, Avril Crowley, Erin Roesch | Yes |
-                | Product (adjacent) | Adrian Malpass, Joanne Pringle, Nicholas Timon | No |
+              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise contacts overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
+              responseConfidence: 0.8
 
-                ES = Yes means the person is employed within Embedded Services. ES = No means they are in an adjacent or partner team.
+            - kind: ConditionGroup
+              id: has_compact_fast_answer_conditions
+              conditions:
+                - id: has_compact_fast_answer
+                  condition: =!IsBlank(Topic.Answer)
+                  actions:
+                    - kind: EndDialog
+                      id: endDialog_contactsOverviewFast
+                      clearTopicQueue: true
 
-                Follow-up questions you could ask:
-                - Who should I contact for partner success?
-                - Show me ES = Yes contacts only.
-                - Who reports to Sean O'Keefe?
-                - Who is the best contact for product marketing?
-                - Show me all support engineers and their reporting lines.
+              elseActions:
+                - kind: SendActivity
+                  id: send_compact_fast_fallback
+                  activity: I could not generate the compact overview for that request.
 
-            - kind: EndDialog
-              id: endDialog_contactsOverviewFast
-              clearTopicQueue: true
+                - kind: EndDialog
+                  id: endDialog_contactsOverviewFastFallback
+                  clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact
@@ -70,7 +74,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
-      generatorInput: "Provide a concise, grounded answer about Embedded Services contacts using the contacts compact file as the only source. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. If the request is broad, summarize by relevant role group and ask one narrowing follow-up question. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. End with one brief follow-up question."
+      generatorInput: "Provide a concise, grounded answer about Embedded Services contacts using the contacts compact file as the only source. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
     - kind: ConditionGroup
@@ -102,7 +106,7 @@ beginDialog:
               - crc1d_agentB3vfwx.topic.HSBCxlsx_Pc953eIPoM1ITnowwWdLL
               - crc1d_agentB3vfwx.topic.Monzoxlsx_ddRBCgfVx0RbrXQqjAcmq
 
-          generatorInput: "Provide a concise, grounded answer about Embedded Services contacts. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. If the request is broad, summarize by relevant role group and ask one narrowing follow-up question. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. End with one brief follow-up question."
+          generatorInput: "Provide a concise, grounded answer about Embedded Services contacts. Prioritize direct contact identification: who to contact, their registered role, AKA role, reporting line, and ES status. If multiple matches exist, present the best primary contact first, then 1-3 alternatives. Keep the response short, practical, and evidence-based. Use Sage tone of voice: clear, confident, practical, customer-focused, plain business language. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 
     - kind: ConditionGroup

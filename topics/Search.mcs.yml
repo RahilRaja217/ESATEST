@@ -8,10 +8,24 @@ beginDialog:
   priority: -1
   actions:
     - kind: ConditionGroup
+      id: blank_text_guard
+      conditions:
+        - id: is_blank_text
+          condition: =IsBlank(Trim(System.Activity.Text))
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_showPrompts_forBlankText
+              dialog: crc1d_agentB3vfwx.topic.ShowPrompts
+
+            - kind: EndDialog
+              id: endDialog_afterBlankText
+              clearTopicQueue: true
+
+    - kind: ConditionGroup
       id: architecture_overview_global_guard
       conditions:
         - id: is_architecture_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "architecture_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "brief architectural overview"), StartsWith(Lower(System.Activity.Text), "architecture overview"), StartsWith(Lower(System.Activity.Text), "architecture"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "architecture_overview"), StartsWith(Lower(System.Activity.Text), "architecture_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "brief architectural overview"), StartsWith(Lower(System.Activity.Text), "architecture overview"), StartsWith(Lower(System.Activity.Text), "architecture"))
           actions:
             - kind: BeginDialog
               id: beginDialog_architectureOverviewQuick
@@ -25,7 +39,7 @@ beginDialog:
       id: api_overview_global_guard
       conditions:
         - id: is_api_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "api_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "brief api overview"), StartsWith(Lower(System.Activity.Text), "api overview"), StartsWith(Lower(System.Activity.Text), "apis"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "api_overview"), StartsWith(Lower(System.Activity.Text), "api_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief api overview"), StartsWith(Lower(System.Activity.Text), "brief api overview"), StartsWith(Lower(System.Activity.Text), "api overview"), StartsWith(Lower(System.Activity.Text), "apis"))
           actions:
             - kind: BeginDialog
               id: beginDialog_apiOverviewQuick
@@ -39,7 +53,7 @@ beginDialog:
       id: marketing_overview_global_guard
       conditions:
         - id: is_marketing_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "marketing_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "brief marketing overview"), StartsWith(Lower(System.Activity.Text), "marketing overview"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on marketing"), StartsWith(Lower(System.Activity.Text), "marketing"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "marketing_overview"), StartsWith(Lower(System.Activity.Text), "marketing_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief marketing overview"), StartsWith(Lower(System.Activity.Text), "brief marketing overview"), StartsWith(Lower(System.Activity.Text), "marketing overview"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on marketing"), StartsWith(Lower(System.Activity.Text), "marketing"))
           actions:
             - kind: BeginDialog
               id: beginDialog_marketingOverviewQuick
@@ -53,7 +67,7 @@ beginDialog:
       id: availability_overview_global_guard
       conditions:
         - id: is_availability_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "availability_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "brief capability and availability overview"), StartsWith(Lower(System.Activity.Text), "availability overview"), StartsWith(Lower(System.Activity.Text), "availability"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "availability_overview"), StartsWith(Lower(System.Activity.Text), "availability_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "brief capability and availability overview"), StartsWith(Lower(System.Activity.Text), "availability overview"), StartsWith(Lower(System.Activity.Text), "availability"))
           actions:
             - kind: BeginDialog
               id: beginDialog_availabilityOverviewQuick
@@ -67,7 +81,7 @@ beginDialog:
       id: competitors_overview_global_guard
       conditions:
         - id: is_competitors_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "competitors_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "brief competitors overview"), StartsWith(Lower(System.Activity.Text), "competitors"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "competitors_overview"), StartsWith(Lower(System.Activity.Text), "competitors_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "brief competitors overview"), StartsWith(Lower(System.Activity.Text), "competitors"))
           actions:
             - kind: BeginDialog
               id: beginDialog_competitorsOverviewQuick
@@ -81,7 +95,7 @@ beginDialog:
       id: tenders_overview_global_guard
       conditions:
         - id: is_tenders_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "tenders_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "please provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "can you provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "brief tenders overview"), StartsWith(Lower(System.Activity.Text), "tenders"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "tenders_overview"), StartsWith(Lower(System.Activity.Text), "tenders_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "please provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "can you provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "brief tenders overview"), StartsWith(Lower(System.Activity.Text), "tenders"))
           actions:
             - kind: BeginDialog
               id: beginDialog_tendersOverviewQuick
@@ -92,10 +106,24 @@ beginDialog:
               clearTopicQueue: true
 
     - kind: ConditionGroup
+      id: contacts_overview_global_guard
+      conditions:
+        - id: is_contacts_overview_prompt
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "contacts_overview"), StartsWith(Lower(System.Activity.Text), "contacts_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "brief contacts overview"), StartsWith(Lower(System.Activity.Text), "contacts overview"), StartsWith(Lower(System.Activity.Text), "who are the contacts"), StartsWith(Lower(System.Activity.Text), "show me the contacts"), StartsWith(Lower(System.Activity.Text), "contacts"))
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_contactsOverviewQuick
+              dialog: crc1d_agentB3vfwx.topic.ContactsOverviewQuick
+
+            - kind: EndDialog
+              id: endDialog_afterContactsOverviewQuick
+              clearTopicQueue: true
+
+    - kind: ConditionGroup
       id: new_to_esa_overview_global_guard
       conditions:
         - id: is_new_to_esa_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "new to embedded services"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview"), StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "new to embedded services"))
           actions:
             - kind: BeginDialog
               id: beginDialog_newToEsaOverviewQuick
@@ -103,6 +131,16 @@ beginDialog:
 
             - kind: EndDialog
               id: endDialog_afterNewToEsaOverviewQuick
+              clearTopicQueue: true
+
+    - kind: ConditionGroup
+      id: acknowledgement_guard
+      conditions:
+        - id: is_acknowledgement_only
+          condition: =Or(Trim(Lower(System.Activity.Text)) = "ok", Trim(Lower(System.Activity.Text)) = "okay", Trim(Lower(System.Activity.Text)) = "thanks", Trim(Lower(System.Activity.Text)) = "thank you", Trim(Lower(System.Activity.Text)) = "great", Trim(Lower(System.Activity.Text)) = "cool", Trim(Lower(System.Activity.Text)) = "yes", Trim(Lower(System.Activity.Text)) = "no")
+          actions:
+            - kind: EndDialog
+              id: endDialog_acknowledgement_only
               clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
@@ -116,7 +154,7 @@ beginDialog:
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
-      generatorInput: "Apply the Availability Orchestration Contract for availability questions, and use standard grounded-answer behavior for other ESA questions. For broad availability list requests (sub-capabilities, capabilities, capability families, regions), return exactly three sections in this order with exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Never output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless explicitly asked. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. User question: {System.Activity.Text}"
+      generatorInput: "Apply the Availability Orchestration Contract for availability questions, and use standard grounded-answer behavior for other ESA questions. For broad availability list requests (sub-capabilities, capabilities, capability families, regions), return exactly three sections in this order with exact headings: Live, Externally Marketable, Internal. Do not include parentheses in headings. Never output labels like Live (Externally Marketable) or Live (Internal). Use Availability status only for grouping and labels, and ignore Capability status unless explicitly asked. For capability families, assign each family to exactly one primary status using precedence Live > Externally Marketable > Internal and do not repeat families across sections. For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. If the user asks a broad question like 'what about sub-capabilities' and does not name a specific sub-capability, return a broad grouped list across all sub-capabilities, not a single-item breakdown. For any named sub-capability regional answer, read the Sub-capability Regional Status Index entry first, then validate with Detailed Availability Records and list every matching region. Never state that explicit records are missing for regions when explicit rows exist. Do not include citation markers. Do not add follow-up questions or suggestions unless explicitly requested by the user. User question: {System.Activity.Text}"
       responseConfidence: 0.5
 
     - kind: ConditionGroup
@@ -135,7 +173,7 @@ beginDialog:
           variable: Topic.GenerativeAnswer
           userInput: =System.Activity.Text
           responseConfidence: 0.2
-          generatorInput: "Provide a best-effort answer using the Availability Orchestration Contract for availability questions. Use Availability status only for grouping and labels; ignore Capability status unless explicitly asked. Never output labels like Live (Externally Marketable) or Live (Internal). For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. For named sub-capability regional answers, use the Sub-capability Regional Status Index entry first, then verify against explicit Detailed Availability Records rows before listing regions, and do not claim missing explicit records when rows exist. If evidence is partial, start with 'Based on available records'. Never output citation markers or the phrase 'No information was found that could help answer this.' Keep the answer short and practical. User question: {System.Activity.Text}"
+          generatorInput: "Provide a best-effort answer using the Availability Orchestration Contract for availability questions. Use Availability status only for grouping and labels; ignore Capability status unless explicitly asked. Never output labels like Live (Externally Marketable) or Live (Internal). For every capability or sub-capability listed, include its capability family. For any region-targeted or status-targeted multi-item list (for example 'what is live in <region>' or 'what is externally marketable in <region>'), output exactly one markdown table and nothing else. Required header: | Capability family | Capability | Sub-capability | Status | Region |. Keep Capability family, Status, and Region populated on every row; include Capability or Sub-capability where applicable. Do not include introductory text, semicolon lists, summary lines, or follow-up questions before or after the table. For named sub-capability regional answers, use the Sub-capability Regional Status Index entry first, then verify against explicit Detailed Availability Records rows before listing regions, and do not claim missing explicit records when rows exist. If evidence is partial, start with 'Based on available records'. Never output citation markers or the phrase 'No information was found that could help answer this.' Keep the answer short and practical. Do not add follow-up questions or suggestions unless explicitly requested by the user. User question: {System.Activity.Text}"
 
         - kind: ConditionGroup
           id: generative_answer_conditions

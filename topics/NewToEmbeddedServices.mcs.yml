@@ -22,33 +22,40 @@ beginDialog:
       id: new_to_esa_overview_fast_path
       conditions:
         - id: is_new_to_esa_overview_prompt
-          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
+          condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview"), StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "new to esa?"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
           actions:
-            - kind: SendActivity
-              id: sendActivity_newToEsaOverviewFast
-              activity: |-
-                Welcome to Sage Embedded Services! Here's a quick orientation to help you get started and find what you need.
+            - kind: SearchAndSummarizeContent
+              id: search_content_compact_fast
+              variable: Topic.Answer
+              userInput: =System.Activity.Text
+              fileSearchDataSource:
+                searchFilesMode:
+                  kind: SearchSpecificFiles
+                  files:
+                    - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
+                    - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_feI
 
-                | Learning path | What you'll understand | Best for |
-                | --- | --- | --- |
-                | Architecture | How ESA is designed and how pieces fit together | Technical leads, architects, integration teams |
-                | APIs | What capabilities are exposed and how to call them | Developers, technical delivery |
-                | Availability | What is ready now and what's coming | Product managers, commercial teams, pre-sales |
-                | Marketing | The value proposition and competitive positioning | Sales teams, executives, partners |
-                | Tenders | How to answer RFI/RFP questions with evidence | Pre-sales, bid teams |
+              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise new-to-ESA overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
+              responseConfidence: 0.8
 
-                ESA helps partners embed finance capabilities (accounting, expense, payroll, carbon) directly into applications so end users experience finance workflows in-context.
+            - kind: ConditionGroup
+              id: has_compact_fast_answer_conditions
+              conditions:
+                - id: has_compact_fast_answer
+                  condition: =!IsBlank(Topic.Answer)
+                  actions:
+                    - kind: EndDialog
+                      id: endDialog_newToEsaOverviewFast
+                      clearTopicQueue: true
 
-                Follow-up questions you could ask:
-                - Give me a learning overview of ESA APIs
-                - Provide a brief architectural overview
-                - What is live in the UK
-                - Provide a brief marketing overview
-                - Tell me about tender support
+              elseActions:
+                - kind: SendActivity
+                  id: send_compact_fast_fallback
+                  activity: I could not generate the compact overview for that request.
 
-            - kind: EndDialog
-              id: endDialog_newToEsaOverviewFast
-              clearTopicQueue: true
+                - kind: EndDialog
+                  id: endDialog_newToEsaOverviewFastFallback
+                  clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact
@@ -59,11 +66,12 @@ beginDialog:
           kind: SearchSpecificFiles
           files:
             - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
+            - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_feI
 
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
 
-      generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step."
+      generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
       responseConfidence: 0.6
 
     - kind: ConditionGroup
@@ -86,6 +94,7 @@ beginDialog:
               kind: SearchSpecificFiles
               files:
                 - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
+                - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_feI
 
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
@@ -94,7 +103,7 @@ beginDialog:
               - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
               - crc1d_agentB3vfwx.topic.SageEmbeddedServicesPlaybookFY26Q2pptx_e_BfHURNSfxe5SCCjEknK
 
-          generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. End with one brief follow-up question or suggested next step."
+          generatorInput: "Provide a concise onboarding summary for users new to Sage Embedded Services. Explain what ESA does, where to start learning, and recommend a learning path based on their role. Keep the response short, welcoming, and practical. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
           responseConfidence: 0.6
 
     - kind: ConditionGroup

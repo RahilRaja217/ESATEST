@@ -9,6 +9,7 @@ beginDialog:
     displayName: Competitors Overview Quick
     includeInOnSelectIntent: false
     triggerQueries:
+      - COMPETITORS_OVERVIEW
       - COMPETITORS_OVERVIEW_QUICK
       - Provide a brief overview on competitors
       - Please provide a brief overview on competitors
@@ -21,28 +22,15 @@ beginDialog:
       - "Availability"
       - "Marketing"
       - "Tenders"
-      - "Competitors"`r`n      - "Contacts"`r`n      - "Send message"
+      - "Competitors"
+      - "Contacts"
+      - "Send message"
       - "Reset"
 
   actions:
-    - kind: SendActivity
-      id: sendActivity_competitorsOverviewQuick
-      activity: |-
-        Sage Embedded Services has clear competitive differentiation in embedded finance, where partners can integrate multiple finance domains directly into their applications.
-
-        | Competitive area | What differentiates ESA | Typical learning question |
-        | --- | --- | --- |
-        | Embedded-first design | Purpose-built for embedding, not adapted from standalone products | Why is an embedded-first platform different? |
-        | Multi-domain coverage | Accounting, expense, carbon, and payroll in one platform | How does breadth of domains create advantage? |
-        | Partner success model | Focus on partner outcomes, not just feature lists | What does ESA prioritize in partner engagements? |
-        | Operational trust | Enterprise-grade security, compliance, and reliability | Why can partners trust ESA at scale? |
-
-        If useful, I can explore any competitive area with real-world positioning examples and customer use cases.
-
-        Follow-up questions you could ask:
-        - How does ESA differentiate from point solutions in accounting or expense?
-        - What are common competitor comparison points?
-        - Do you want positioning language for a specific scenario?
+    - kind: BeginDialog
+      id: beginDialog_competitors
+      dialog: crc1d_agentB3vfwx.topic.Competitors
 
     - kind: EndDialog
       id: end_topic

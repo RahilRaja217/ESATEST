@@ -9,6 +9,7 @@ beginDialog:
     displayName: Availability Overview Quick
     includeInOnSelectIntent: false
     triggerQueries:
+      - AVAILABILITY_OVERVIEW
       - AVAILABILITY_OVERVIEW_QUICK
       - Provide a brief overview on capability and availability
       - Please provide a brief overview on capability and availability
@@ -22,28 +23,15 @@ beginDialog:
       - "Availability"
       - "Marketing"
       - "Tenders"
-      - "Competitors"`r`n      - "Contacts"`r`n      - "Send message"
+      - "Competitors"
+      - "Contacts"
+      - "Send message"
       - "Reset"
 
   actions:
-    - kind: SendActivity
-      id: sendActivity_availabilityOverviewQuick
-      activity: |-
-        Sage Embedded Services availability view helps you understand where capabilities are ready today and how they can be positioned for delivery planning.
-
-        | Availability lens | What it helps answer | Typical learning question |
-        | --- | --- | --- |
-        | Status model | Distinguishes Live, Externally Marketable, and Internal states | What do availability statuses mean in practice? |
-        | Regional coverage | Shows where each capability or sub-capability is available | What is live in the UK or US today? |
-        | Capability structure | Connects capability families, capabilities, and sub-capabilities | How do I trace availability from family to sub-capability? |
-        | Planning signal | Supports rollout sequencing and market positioning decisions | Which items can be sold now versus prepared internally? |
-
-        If useful, I can provide a table for a specific region and status, such as what is live in the UK.
-
-        Follow-up questions you could ask:
-        - What is live in the UK?
-        - What is externally marketable in the US?
-        - Where is General ledger available?
+    - kind: BeginDialog
+      id: beginDialog_availability
+      dialog: crc1d_agentB3vfwx.topic.Availability
 
     - kind: EndDialog
       id: end_topic

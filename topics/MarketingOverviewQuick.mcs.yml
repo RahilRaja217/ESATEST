@@ -9,6 +9,7 @@ beginDialog:
     displayName: Marketing Overview Quick
     includeInOnSelectIntent: false
     triggerQueries:
+      - MARKETING_OVERVIEW
       - MARKETING_OVERVIEW_QUICK
       - Provide a brief marketing overview
       - Please provide a brief marketing overview
@@ -23,28 +24,15 @@ beginDialog:
       - "Availability"
       - "Marketing"
       - "Tenders"
-      - "Competitors"`r`n      - "Contacts"`r`n      - "Send message"
+      - "Competitors"
+      - "Contacts"
+      - "Send message"
       - "Reset"
 
   actions:
-    - kind: SendActivity
-      id: sendActivity_marketingOverviewQuick
-      activity: |-
-        Sage Embedded Services marketing proposition centers on helping partners embed finance capabilities directly into their user journeys so they can deliver customer value faster, with lower delivery effort and stronger operational confidence.
-
-        | Marketing pillar | What it emphasizes | Typical learning question |
-        | --- | --- | --- |
-        | Business value | Clear outcomes such as speed, efficiency, and growth support | What business outcomes does ESA help partners achieve? |
-        | Product differentiation | Embedded finance experiences integrated into partner products | How does ESA help partners differentiate their offer? |
-        | Capability breadth | Coverage across accounting, expense, carbon, and payroll domains | Which capability areas can partners bring to market? |
-        | Trust and scale | Reliable operations, governance, and enterprise-ready controls | Why is ESA positioned as a trusted embedded platform? |
-
-        If useful, I can go one level deeper into any marketing pillar with practical examples and positioning language.
-
-        Follow-up questions you could ask:
-        - Which marketing pillar should I lead with for an executive audience?
-        - Do you want a short value message tailored for product, sales, or delivery teams?
-        - Would you like a side-by-side summary of ESA outcomes versus common partner pain points?
+    - kind: BeginDialog
+      id: beginDialog_marketing
+      dialog: crc1d_agentB3vfwx.topic.Marketing
 
     - kind: EndDialog
       id: end_topic
