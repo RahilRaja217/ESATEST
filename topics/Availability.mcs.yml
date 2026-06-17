@@ -42,37 +42,23 @@ beginDialog:
         - id: is_availability_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "availability_overview"), StartsWith(Lower(System.Activity.Text), "availability_overview_quick"), StartsWith(Lower(System.Activity.Text), "availability"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on capability and availability"), StartsWith(Lower(System.Activity.Text), "brief capability and availability overview"), StartsWith(Lower(System.Activity.Text), "availability overview"), StartsWith(Lower(System.Activity.Text), "provide me with a capability availability summary"), StartsWith(Lower(System.Activity.Text), "give me a capability availability summary"), StartsWith(Lower(System.Activity.Text), "tell me about capability availability"), StartsWith(Lower(System.Activity.Text), "tell me the capability availability status"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_Availability_Summary_Compact.md_o_y
+            - kind: SendActivity
+              id: sendActivity_availabilityOverviewFast
+              activity: |-
+                Sage Embedded Services availability helps you understand where capabilities are ready today and how they can be positioned for delivery planning.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise availability overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Availability lens | What it helps answer | Example question |
+                | --- | --- | --- |
+                | Status model | Distinguishes Live, Externally Marketable, and Internal states | What do availability statuses mean in practice? |
+                | Regional coverage | Shows where each capability or sub-capability is available | What is live in the UK or US today? |
+                | Capability structure | Connects capability families, capabilities, and sub-capabilities | How do I trace availability from family to sub-capability? |
+                | Planning signal | Supports rollout sequencing and market positioning decisions | Which items can be sold now versus prepared internally? |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_availabilityOverviewFast
-                      clearTopicQueue: true
+                Ask me about a specific region, status, or capability. For example: What is live in the UK?
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_availabilityOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_availabilityOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact

@@ -25,37 +25,23 @@ beginDialog:
         - id: is_architecture_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "architecture_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief architectural overview"), StartsWith(Lower(System.Activity.Text), "brief architectural overview"), StartsWith(Lower(System.Activity.Text), "architecture overview"), StartsWith(Lower(System.Activity.Text), "summarise the architecture"), StartsWith(Lower(System.Activity.Text), "tell me about the architecture"), StartsWith(Lower(System.Activity.Text), "what architecture is used"), StartsWith(Lower(System.Activity.Text), "how is it architected"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_A01
+            - kind: SendActivity
+              id: sendActivity_architectureOverviewFast
+              activity: |-
+                Sage Embedded Services architecture is designed as a capability-led model that lets partners embed finance experiences without rebuilding core domain services.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise architecture overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Architecture layer | What it covers | Typical question |
+                | --- | --- | --- |
+                | Experience layer | Embedded UX and channel touchpoints in partner journeys | Where does ESA appear in the end-user journey? |
+                | API and orchestration layer | API interfaces, workflow orchestration, and integration coordination | How do partner systems interact with ESA services? |
+                | Domain capability layer | Core business domains: accounting, payroll, expense, and carbon | Which capabilities are delivered by ESA domain services? |
+                | Platform and operations layer | Security, environment controls, monitoring, and reliability | How is architecture operated securely at scale? |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_architectureOverviewFast
-                      clearTopicQueue: true
+                Ask me anything about a specific layer, or ask about APIs, availability, or other topics.
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_architectureOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_architectureOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact

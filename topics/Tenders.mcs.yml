@@ -24,38 +24,24 @@ beginDialog:
         - id: is_tenders_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "tenders_overview"), StartsWith(Lower(System.Activity.Text), "tenders_overview_quick"), StartsWith(Lower(System.Activity.Text), "tenders"), StartsWith(Lower(System.Activity.Text), "provide a brief summary on how esa can support answering tender questions"), StartsWith(Lower(System.Activity.Text), "how can esa support tenders"), StartsWith(Lower(System.Activity.Text), "tell me about tender support"), StartsWith(Lower(System.Activity.Text), "how does esa help with rfi and rfp"), StartsWith(Lower(System.Activity.Text), "what tender support does esa provide"), StartsWith(Lower(System.Activity.Text), "summarise esa tender support"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_Tenders_Summary_Compact.md_T01
-                    - crc1d_agentB3vfwx.file.ESA_Tenders_Summary_Compact.md_qaa
+            - kind: SendActivity
+              id: sendActivity_tendersOverviewFast
+              activity: |-
+                Sage Embedded Services can support partners and pre-sales teams in responding to RFI and RFP tender questionnaires with grounded, consistent evidence across capabilities, availability, architecture, and proposition.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise tenders overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Tender area | What ESA can help answer | Example question |
+                | --- | --- | --- |
+                | Capability coverage | Which finance capabilities are available and in which regions | What accounting or payroll capabilities are supported? |
+                | Availability and roadmap | What is live, externally marketable, or internal by region | What is currently live in the UK or US? |
+                | Integration and architecture | How ESA integrates with partner platforms and systems | How does ESA connect with existing partner workflows? |
+                | Security and compliance | Platform security controls, data governance, and certifications | What security standards does ESA comply with? |
+                | Commercial and proposition | Pricing model, partner engagement, and value delivery | How is ESA commercially structured for partners? |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_tendersOverviewFast
-                      clearTopicQueue: true
+                Ask me for suggested answer language for any tender area, or ask about a specific capability or region.
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_tendersOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_tendersOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact

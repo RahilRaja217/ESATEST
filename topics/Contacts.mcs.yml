@@ -29,37 +29,26 @@ beginDialog:
         - id: is_contacts_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "contacts_overview_quick"), StartsWith(Lower(System.Activity.Text), "provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "please provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "can you provide a brief contacts overview"), StartsWith(Lower(System.Activity.Text), "brief contacts overview"), StartsWith(Lower(System.Activity.Text), "contacts overview"), StartsWith(Lower(System.Activity.Text), "who are the contacts"), StartsWith(Lower(System.Activity.Text), "show me the contacts"), StartsWith(Lower(System.Activity.Text), "contacts"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_C01
+            - kind: SendActivity
+              id: sendActivity_contactsOverviewFast
+              activity: |-
+                The Embedded Services contacts directory covers 52 people across ES and adjacent teams.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise contacts overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Area | Key contacts | ES |
+                | --- | --- | --- |
+                | Leadership | Gordon Stuart (SVP), Jonathan Cowan (EVP) | Yes / No |
+                | Continuous Innovation | Sean O'Keefe, Terrence Trench, Kayleigh Henderson | Yes |
+                | Partner Success | Tara Ellis, Mags Fulker | Yes |
+                | Developer Services | James Coleman, Darren Liddell, Rahil Raja | Yes |
+                | Support & Escalation | Richard Lord, Ify Okafor, Himesh Patel | Yes |
+                | Marketing | Phil Catt, Kate Butler, Avril Crowley, Erin Roesch | Yes |
+                | Product (adjacent) | Adrian Malpass, Joanne Pringle, Nicholas Timon | No |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_contactsOverviewFast
-                      clearTopicQueue: true
+                ES = Yes means the person is employed within Embedded Services. Ask me about a specific person, role, or team.
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_contactsOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_contactsOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact

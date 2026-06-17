@@ -24,38 +24,24 @@ beginDialog:
         - id: is_new_to_esa_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "new_to_esa_overview"), StartsWith(Lower(System.Activity.Text), "new_to_esa_overview_quick"), StartsWith(Lower(System.Activity.Text), "new to esa?"), StartsWith(Lower(System.Activity.Text), "new to esa"), StartsWith(Lower(System.Activity.Text), "i'm new to embedded services. where should i start"), StartsWith(Lower(System.Activity.Text), "i'm new to esa"), StartsWith(Lower(System.Activity.Text), "where should i start"), StartsWith(Lower(System.Activity.Text), "help me get started"), StartsWith(Lower(System.Activity.Text), "first steps with esa"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_N01
-                    - crc1d_agentB3vfwx.file.ESA_NewToEmbeddedServices_Summary_Compact.md_feI
+            - kind: SendActivity
+              id: sendActivity_newToEsaOverviewFast
+              activity: |-
+                Welcome to Sage Embedded Services. Here is a quick orientation to help you get started.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise new-to-ESA overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Learning path | What you will understand | Best for |
+                | --- | --- | --- |
+                | Architecture | How ESA is designed and how pieces fit together | Technical leads, architects, integration teams |
+                | APIs | What capabilities are exposed and how to call them | Developers, technical delivery |
+                | Availability | What is ready now and what is coming | Product managers, commercial teams, pre-sales |
+                | Marketing | The value proposition and competitive positioning | Sales teams, executives, partners |
+                | Tenders | How to answer RFI/RFP questions with evidence | Pre-sales, bid teams |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_newToEsaOverviewFast
-                      clearTopicQueue: true
+                ESA helps partners embed finance capabilities (accounting, expense, payroll, carbon) directly into applications. Ask me about any of the paths above to go deeper.
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_newToEsaOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_newToEsaOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact

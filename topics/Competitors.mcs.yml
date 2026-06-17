@@ -23,37 +23,23 @@ beginDialog:
         - id: is_competitors_overview_prompt
           condition: =Or(StartsWith(Lower(System.Activity.Text), "competitors_overview"), StartsWith(Lower(System.Activity.Text), "competitors_overview_quick"), StartsWith(Lower(System.Activity.Text), "competitors"), StartsWith(Lower(System.Activity.Text), "provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "please provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "can you provide a brief overview on competitors"), StartsWith(Lower(System.Activity.Text), "brief competitors overview"), StartsWith(Lower(System.Activity.Text), "summarise the competitive strategy"), StartsWith(Lower(System.Activity.Text), "tell me about the competitive strategy"), StartsWith(Lower(System.Activity.Text), "what is the competitive strategy"), StartsWith(Lower(System.Activity.Text), "summarise competitors"), StartsWith(Lower(System.Activity.Text), "who are the competitors"))
           actions:
-            - kind: SearchAndSummarizeContent
-              id: search_content_compact_fast
-              variable: Topic.Answer
-              userInput: =System.Activity.Text
-              fileSearchDataSource:
-                searchFilesMode:
-                  kind: SearchSpecificFiles
-                  files:
-                    - crc1d_agentB3vfwx.file.ESA_Competitors_Summary_Compact.md_C01
+            - kind: SendActivity
+              id: sendActivity_competitorsOverviewFast
+              activity: |-
+                Sage Embedded Services has clear competitive differentiation in embedded finance, where partners can integrate multiple finance domains directly into their applications.
 
-              generatorInput: "Use only the compact file evidence for this response. Provide a deterministic, concise competitors overview for a first-click quick prompt. Keep the response short, grounded, and practical. Do not ask follow-up questions and do not add extra suggestions."
-              responseConfidence: 0.8
+                | Competitive area | What differentiates ESA | Example question |
+                | --- | --- | --- |
+                | Embedded-first design | Purpose-built for embedding, not adapted from standalone products | Why is an embedded-first platform different? |
+                | Multi-domain coverage | Accounting, expense, carbon, and payroll in one platform | How does breadth of domains create advantage? |
+                | Partner success model | Focus on partner outcomes, not just feature lists | What does ESA prioritize in partner engagements? |
+                | Operational trust | Enterprise-grade security, compliance, and reliability | Why can partners trust ESA at scale? |
 
-            - kind: ConditionGroup
-              id: has_compact_fast_answer_conditions
-              conditions:
-                - id: has_compact_fast_answer
-                  condition: =!IsBlank(Topic.Answer)
-                  actions:
-                    - kind: EndDialog
-                      id: endDialog_competitorsOverviewFast
-                      clearTopicQueue: true
+                Ask me about a specific competitive scenario, or ask for positioning language for a comparison.
 
-              elseActions:
-                - kind: SendActivity
-                  id: send_compact_fast_fallback
-                  activity: I could not generate the compact overview for that request.
-
-                - kind: EndDialog
-                  id: endDialog_competitorsOverviewFastFallback
-                  clearTopicQueue: true
+            - kind: EndDialog
+              id: endDialog_competitorsOverviewFast
+              clearTopicQueue: true
 
     - kind: SearchAndSummarizeContent
       id: search_content_compact
