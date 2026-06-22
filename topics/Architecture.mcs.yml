@@ -56,12 +56,10 @@ beginDialog:
         searchFilesMode:
           kind: SearchSpecificFiles
           files:
-            - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_A01
+            - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_p-n
 
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
-        knowledgeSources:
-          - crc1d_agentB3vfwx.topic.httpsdevelopersagecomembeddedservices__9K91NJnP0gXvSlPUzesU
 
       applyModelKnowledgeSetting: false
       generatorInput: "Provide a concise, grounded response for Sage Embedded Services architecture for users learning the architecture landscape. Prioritize orientation: architecture layers, core platform components, integration approach, and relationships between layers. Include implementation detail only when explicitly asked. Keep the response short and direct. Use Sage tone of voice: clear, confident, practical, and customer-focused. Do not ask follow-up questions or add extra suggestions unless the user asks for them."
@@ -86,7 +84,7 @@ beginDialog:
             searchFilesMode:
               kind: SearchSpecificFiles
               files:
-                - crc1d_agentB3vfwx.file.ESA_API_Summary_Compact.md_QM0
+                - crc1d_agentB3vfwx.file.ESA_Architecture_Summary_Compact.md_p-n
 
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources

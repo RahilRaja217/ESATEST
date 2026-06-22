@@ -63,7 +63,7 @@ beginDialog:
         searchFilesMode:
           kind: SearchSpecificFiles
           files:
-            - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_C01
+            - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_jUY
 
       knowledgeSources:
         kind: SearchSpecificKnowledgeSources
@@ -91,7 +91,7 @@ beginDialog:
             searchFilesMode:
               kind: SearchSpecificFiles
               files:
-                - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_C01
+                - crc1d_agentB3vfwx.file.ESA_Contacts_Summary_Compact.md_jUY
 
           knowledgeSources:
             kind: SearchSpecificKnowledgeSources
